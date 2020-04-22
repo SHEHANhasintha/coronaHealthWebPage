@@ -11,7 +11,7 @@ var usersRouter = require('./routes/users');
 //var fire = require('./covidatlas/users');
 
 var app = express();
-//app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
+app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
