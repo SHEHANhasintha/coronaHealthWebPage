@@ -1,7 +1,7 @@
 {
   "name": "covidatlas",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "engine": {
     "node": "12.16.1",
     "npm": "6.13.4"
