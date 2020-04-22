@@ -6,7 +6,7 @@ var router = express.Router();
 const app = express();
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, './client/build')));
 
 // Put all API endpoints under '/api'
 /*app.get('/api/passwords', (req, res) => {
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render(path.join(__dirname+'/covidatlas/build/index.html'), { title: 'Express' });
+  res.render('index', { title: 'Express' });
 });
 
 
