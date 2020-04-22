@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-//var fire = require('./covidatlas/users');
+
 
 var app = express();
 app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
@@ -27,15 +27,15 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-app.get("/fire", function(request, response) {
+app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "./covidatlas/build", "index.html"));
 });
 
 
 // catch 404 and forward to error handler
-/*app.use(function(req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
-});*/
+});
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -48,6 +48,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//app.listen(port);
+
 
 module.exports = app;
