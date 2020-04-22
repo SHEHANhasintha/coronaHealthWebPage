@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon ./bin/www",
+    "start": "node ./bin/www",
+    "server": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "covidatlas": "npm run start --prefix covidatlas",
     "dev": "concurrently \"npm run server\" \"npm run covidatlas\"",
