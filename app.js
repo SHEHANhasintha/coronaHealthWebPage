@@ -27,8 +27,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-app.get("/fire", function(request, response) {
-  response.sendFile(path.resolve(__dirname, "./covidatlas/build", "indexcopy.html"));
+app.get("*", function(request, response) {
+  response.sendFile(path.resolve(__dirname, "./covidatlas/build", "index.html"));
 });
 
 
