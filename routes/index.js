@@ -25,8 +25,10 @@ const app = express();
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
+  console.log(path.join(__dirname+'/covidatlas/build/index.html'));
   res.sendFile(path.join(__dirname+'/covidatlas/build/index.html'));
+  
 });
 
 
