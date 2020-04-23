@@ -587,7 +587,7 @@ body {
     position: relative; }
     .site-blocks-cover:after {
       position: absolute;
-     
+      background-image: url("./images/svg_1.svg");
       content: "";
       right: 0; }
     .site-blocks-cover.overlay {

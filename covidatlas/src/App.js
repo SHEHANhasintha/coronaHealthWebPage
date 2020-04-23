@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.jpg';
 import './App.css';
-import HomePageHeader from './HomePageHeader.js';
+import HomePageHeader from './headerSections/HomePageHeader.js';
+import Body from './bodySections/Body.js';
+import Footer from './footer/Footer';
 
 class App extends Component{
   state = { users: [] }
@@ -14,12 +16,13 @@ class App extends Component{
 
   };
 
-
   render(){
     return (
       <div className="App">
 
         <HomePageHeader />
+        <Body />
+        <Footer />
 
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
