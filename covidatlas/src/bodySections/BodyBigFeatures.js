@@ -13,7 +13,7 @@ class BodyBigFeatures extends Component{
             <img src="images/undraw_gift_card_6ekc.svg" alt="Image" className="img-fluid" />
           </div>
           <div className="col-lg-5 pl-lg-5 ml-auto mt-md-5">
-            <h2 className="text-black">Communicate and gather feedback</h2>
+            <h2 className="text-black">Create an account on Covid Atalas</h2>
             <p className="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem neque nisi architecto autem molestias corrupti officia veniam.</p>
             
             <div className="author-box aos-init aos-animate" data-aos="fade-left">
@@ -36,7 +36,7 @@ class BodyBigFeatures extends Component{
             <img src="./images/undraw_metrics_gtu7.svg" alt="Image" className="img-fluid"/>
           </div>
           <div className="col-lg-5 pr-lg-5 mr-auto mt-5 order-2 order-lg-1">
-            <h2 className="text-black">Communicate and gather feedback</h2>
+            <h2 className="text-black">Add your prescription</h2>
             <p className="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem neque nisi architecto autem molestias corrupti officia veniam</p>
             
             
@@ -61,7 +61,7 @@ class BodyBigFeatures extends Component{
             <img src="images/undraw_gift_card_6ekc.svg" alt="Image" className="img-fluid"/>
           </div>
           <div className="col-lg-5 pl-lg-5 ml-auto mt-md-5">
-            <h2 className="text-black">Communicate and gather feedback</h2>
+            <h2 className="text-black">Medical Personal Verification</h2>
             <p className="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem neque nisi architecto autem molestias corrupti officia veniam.</p>
             
             <div className="author-box aos-init" data-aos="fade-left">
@@ -84,7 +84,7 @@ class BodyBigFeatures extends Component{
             <img src="images/undraw_metrics_gtu7.svg" alt="Image" className="img-fluid"/>
           </div>
           <div className="col-lg-5 pr-lg-5 mr-auto mt-5 order-2 order-lg-1">
-            <h2 className="text-black">Communicate and gather feedback</h2>
+            <h2 className="text-black">Post Delivary directly to your home</h2>
             <p className="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem neque nisi architecto autem molestias corrupti officia veniam</p>
             
             

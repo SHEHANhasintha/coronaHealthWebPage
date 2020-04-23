@@ -12,12 +12,12 @@ class BodySectionLanding extends Component{
 
                 <div className="col-md-12 aos-init aos-animate" style={{position:"relative"}} data-aos="fade-up" data-aos-delay="200">
                     
-                    <img src="images/undraw_investing_7u74.svg" alt="Image" className="img-fluid img-absolute"/>
+                    <img src="images/phramcy2.png" alt="Image" className="img-fluid img-absolute"/>
 
                     <div className="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
                     <div className="col-lg-6 mr-auto">
-                        <h1>Make Your Business More Profitable</h1>
-                        <p className="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam assumenda ea quo cupiditate facere deleniti fuga officia.</p>
+                        <h1>LET US CARE ABOUT YOUR MEDICIEN</h1>
+                        <p className="mb-5">If you are having trouble of getting your medicien. We deliver your medicien right on to the foot step of your door.</p>
                         <div>
                         <a href="#" className="btn btn-primary mr-2 mb-2">Get Started</a>
                         </div>

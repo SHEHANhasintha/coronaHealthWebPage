@@ -13,7 +13,7 @@ class HomePageHeader extends Component{
         <div className="row align-items-center">
             
             <div className="col-6 col-md-3 col-xl-4  d-block">
-            <h1 className="mb-0 site-logo"><a href="index.html" className="text-black h2 mb-0">imagine<span className="text-primary">.</span> </a></h1>
+            <h1 className="mb-0 site-logo"><a href="index.html" className="text-black h2 mb-0">Covid Atlas<span className="text-primary">.</span> </a></h1>
             </div>
 
             <div className="col-12 col-md-9 col-xl-8 main-menu">
@@ -37,9 +37,10 @@ class HomePageHeader extends Component{
                     </li>
                     </ul>
                 </li>
-                <li><a href="#testimonials-section" className="nav-link">Testimonials</a></li>
-                <li><a href="#blog-section" className="nav-link">Blog</a></li>
+
                 <li><a href="#contact-section" className="nav-link">Contact</a></li>
+                <li><a href="#testimonials-section" className="nav-link btn btn-primary mr-2 mb-2">Sign up</a></li>
+                <li><a href="#blog-section" className="nav-link btn btn-primary mr-2 mb-2" style={{height:"15px",lineHeight:"0px"}}>Login</a></li>
                 </ul>
             </nav>
             </div>

@@ -24,6 +24,7 @@ class App extends Component{
         <Body />
         <Footer />
 
+        {/* 
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
@@ -34,6 +35,7 @@ class App extends Component{
               <li key={user.id}>{user.username}</li>)}
           </ul>
         </header>
+        */}
       </div>
     );
   }
