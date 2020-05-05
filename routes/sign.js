@@ -25,18 +25,17 @@ app.use(express.static(path.join(__dirname, './client/build')));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname+'/covidatlas/build/index.html'));
+app.get('/sign', (req, res) => {
+  res.sendFile(path.join(__dirname+'/covidatlas/build/sign.html'));
 });
-
 
 
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+/*router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
-});
+});*/
 
 
 
