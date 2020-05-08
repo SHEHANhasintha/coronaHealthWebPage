@@ -32,9 +32,9 @@ app.get("*", function(request, response) {
 });
 
 
-/*app.get("/users", function(request, response) {
+app.get("/users", function(request, response) {
   response.sendFile(path.resolve(__dirname, "./covidatlas/build", "sign.html"));
-});*/
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
