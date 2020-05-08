@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { register } from './../../UserFunctions'
+import "./../../wrap.css";
 
 class Register extends Component {
  constructor(props) {
@@ -65,7 +66,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="app flex-row align-items-center">
+      <div className="app flex-row align-items-center center">
         <Container>
           <Row className="justify-content-center">
             <Col md="9" lg="7" xl="6">

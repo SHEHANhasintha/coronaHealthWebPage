@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import "./../../wrap.css";
 
 class Page404 extends Component {
   render() {
     return (
-      <div className="app flex-row align-items-center">
+      <div className="app flex-row align-items-center center">
         <Container>
           <Row className="justify-content-center">
             <Col md="6">

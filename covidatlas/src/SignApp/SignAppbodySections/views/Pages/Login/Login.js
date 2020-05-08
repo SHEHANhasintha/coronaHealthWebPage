@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { login } from './../../UserFunctions'
+import "./../../wrap.css";
 
 
 class Login extends Component {
@@ -54,7 +55,7 @@ constructor(props) {
   
   render() {
     return (
-      <div className="app flex-row align-items-center">
+      <div className="app flex-row align-items-center center">
         <Container>
           <Row className="justify-content-center">
             <Col md="8">

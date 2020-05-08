@@ -35,7 +35,7 @@ const user = {id: this.state.userID, "User Nmae": this.state.username, registere
 const userDetails = Object.entries(user)
 
     return (
-      <div className="animated fadeIn">
+      <div className="animated fadeIn center">
         <Row>
           <Col >
             <Card>
