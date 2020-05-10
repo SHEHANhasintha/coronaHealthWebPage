@@ -34,11 +34,11 @@ class Forms extends Component {
     }
   }
     componentDidMount() {
-    const token = localStorage.usertoken
+   /* const token = localStorage.usertoken
     const decoded = jwt_decode(token)
     this.setState({
       userID: decoded._id,
-    })
+    })*/
   }
 
   onChangeOrderName(e) {

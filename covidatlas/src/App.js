@@ -24,6 +24,8 @@ const Register = React.lazy(() => import('./SignApp/SignAppbodySections/views/Pa
 const Page404 = React.lazy(() => import('./SignApp/SignAppbodySections/views/Pages/Page404'));
 const Page500 = React.lazy(() => import('./SignApp/SignAppbodySections/views/Pages/Page500'));
 
+const Pageform = React.lazy(() => import('./SignApp/SignAppbodySections/views/Base/Forms/Forms'));
+const ListGroups = React.lazy(() => import('./SignApp/SignAppbodySections/views/Base/ListGroups'));
 
 //const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -62,20 +64,27 @@ class App extends Component{
         <Router>
           <React.Suspense fallback={loading()}>
             {/*<Switch>*/}
-            <Route path="/"  name="Home" component={HomePageHeader} />
+            <switch>
+              <Route path="/" exact  name="Home" component={HomePageHeader} />
+              <Route path="/register" exact  name="Home" component={HomePageHeader} />
+              <Route path="/login" exact  name="Home" component={HomePageHeader} />
+
+            </switch>
+
             
               {/*<Route path="/login" exact component={HomePageHeader} />*/}
               <Route path="/" exact  name="Home" component={Body} />
              
-
+              <switch>
               <Route path="/login" exact name="Login Page" render={props => <Login {...props}/>} />
               <Route path="/register" exact name="Register Page" render={props => <Register {...props}/>} />
               <Route path="/404" exact name="Page 404" render={props => <Page404 {...props}/>} />
               <Route path="/500" exact name="Page 500" render={props => <Page500 {...props}/>} />
               <Route path="/profile" exact name="profile" render={props => <DefaultLayout {...props}/>} />
 
-              
-              
+              <Route path="/pff" exact name="pff" render={props => <Pageform {...props}/>} />              
+              <Route path="/lg" exact name="lg" render={props => <ListGroups {...props}/>} />         
+              </switch>
               
               {/*<Route path="/login" exact component={SignBody} />*/}
               <Footer />

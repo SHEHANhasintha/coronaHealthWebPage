@@ -2,6 +2,8 @@ import React, { Component, Suspense } from '../../../../../node_modules/react';
 import { Redirect, Route, Switch} from '../../../../../node_modules/react-router-dom';
 import * as router from '../../../../../node_modules/react-router-dom';
 import { Container } from '../../../../../node_modules/reactstrap';
+import "./../wrap.css";
+import "./responsive.css";
 
 import {
   AppAside,
@@ -20,9 +22,9 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 
-const DefaultAside = React.lazy(() => import('./DefaultAside'));
+const Card = React.lazy(() => import('./Card'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
-const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
+const Nav = React.lazy(() => import('./Nav'));
 
 class DefaultLayout extends Component {
 
@@ -35,56 +37,58 @@ class DefaultLayout extends Component {
 
   render() {
     return (
-      <div className="app">
-        <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
-          </Suspense>
-        </AppHeader>
-        <div className="app-body">
-          <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
-            </Suspense>
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
-          </AppSidebar>
-          <main className="main">
-            <AppBreadcrumb appRoutes={routes} router={router}/>
-            <Container fluid>
-              <Suspense fallback={this.loading()}>
-                <Switch>
-                  {routes.map((route, idx) => {
-                    return route.component ? (
-                      <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        name={route.name}
-                        render={props => (
-                          <route.component {...props} />
-                        )} />
-                    ) : (null);
-                  })}
-                  <Redirect from="/" to="/profile" />
-                </Switch>
-              </Suspense>
-            </Container>
-          </main>
-          <AppAside fixed>
-            <Suspense fallback={this.loading()}>
-              <DefaultAside />
-            </Suspense>
-          </AppAside>
+
+
+
+<div>
+
+    <div class="app-body">
+    <div class="sidebar">
+      <Nav />
+    </div>
+    <main class="main">
+
+    <div class="container">
+      <div class="container-fluid">
+      <div class="row1">
+        <div class="col1">
+          <Card fixed src={"/prescriptions/8j39ibes0kq31.jpg"}>
+
+          </Card>
+
         </div>
-        <AppFooter>
-          <Suspense fallback={this.loading()}>
-            <DefaultFooter />
-          </Suspense>
-        </AppFooter>
+        <div class="col1">
+          <Card fixed src={"/prescriptions/AT_534565a3-bimage_story.jpg"}>
+              {/*<Suspense  fallback={this.loading()}>
+                <Nav onLogout={e=>this.signOut(e)}/>
+              </Suspense>*/}
+            </Card>
+
+        </div>
+
+        <div class="col1">
+          <Card fixed src={"/prescriptions/av066xO_460s.jpg"}>
+
+          </Card>
+        </div>
+        <div class="col1">
+          <Card fixed src={"/prescriptions/B99336816Z.1_20151218180325_000_GHBNOE93.1-0.jpg"}>
+
+            </Card>
+        </div>
       </div>
+      
+    </div>
+    </div>
+
+    </main>
+    <aside class="aside-menu">
+    </aside>
+    </div>
+    <footer class="app-footer">
+    </footer>
+    
+    </div>
     );
   }
 }

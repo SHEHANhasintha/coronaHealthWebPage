@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row} from 'reactstrap';
 import jwt_decode from 'jwt-decode';
 import { getOrderDetails } from './../../UserFunctions';
+import "./../../wrap.css";
 
 class ListGroups extends Component {
 
@@ -17,7 +18,7 @@ constructor(props) {
   }
   
  componentDidMount() {
-    const token = localStorage.usertoken;
+   /* const token = localStorage.usertoken;
     const decoded = jwt_decode(token) ;      
     this.state.userID = decoded._id;
      getOrderDetails(this.state.userID).then(res => {
@@ -26,7 +27,7 @@ constructor(props) {
         console.log(this.state.userOrders);
         console.log('Data has been received!!');
         }
-      })
+      })*/
   }
 
 
@@ -35,8 +36,14 @@ constructor(props) {
     return (
    
     
-      <div className="animated fadeIn">
+      <div className="animated fadeIn center">
         
+      <p>fjksdhfk sdfjksdhfkjdfhsdkjfshdf<br/>hjgdsfjgsdfjsdgfjsd
+      fjksdhfk sdfjksdhfkjdfhsdkjfshdf<br/>
+      fjksdhfk sdfjksdhfkjdfhsdkjfshdf<br/>
+      fjksdhfk sdfjksdhfkjdfhsdkjfshdf<br/>
+      fjksdhfk sdfjksdhfkjdfhsdkjfshdf<br/>
+      fjksdhfk sdfjksdhfkjdfhsdkjfshdf<br/></p>
 
         <Row>
           <Col>

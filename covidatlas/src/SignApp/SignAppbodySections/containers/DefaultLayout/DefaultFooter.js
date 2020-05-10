@@ -1,5 +1,7 @@
 import React, { Component } from '../../../../../node_modules/react';
 import PropTypes from '../../../../../node_modules/prop-types';
+import "./../wrap.css";
+
 
 const propTypes = {
   children: PropTypes.node,
@@ -14,9 +16,9 @@ class DefaultFooter extends Component {
     const { children, ...attributes } = this.props;
 
     return (
-      <React.Fragment>
-        <span><a href="https://coreui.io">CoreUI</a> &copy; 2019 creativeLabs.</span>
-        <span className="ml-auto">Powered by <a href="https://coreui.io/react">CoreUI for React</a></span>
+      <React.Fragment className="">
+       {/* <span><a href="https://coreui.io">CoreUI</a> &copy; 2019 creativeLabs.</span>
+        <span className="ml-auto">Powered by <a href="https://coreui.io/react">CoreUI for React</a></span>*/}
       </React.Fragment>
     );
   }

@@ -97,7 +97,7 @@ constructor(props) {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4">Login</Button>
+                          <Button href="/profile" color="primary" className="px-4">Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>

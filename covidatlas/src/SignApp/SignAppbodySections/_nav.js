@@ -4,8 +4,8 @@ var username = ''
 
 function componentDidMount() {
     const token = localStorage.usertoken
-    const decoded = jwt_decode(token)
-    username=decoded.username
+    /*const decoded = jwt_decode(token)
+    username=decoded.username*/
   }
 
 componentDidMount()
