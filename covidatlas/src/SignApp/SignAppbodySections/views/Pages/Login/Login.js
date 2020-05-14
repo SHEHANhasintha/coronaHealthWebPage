@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { login } from './../../UserFunctions'
 import "./../../wrap.css";
+import GoogleAuth from './GoogleAuth'
+import FacebookLogin from './../../../../FacebookLogin/FacebookLogin'
 
 
 class Login extends Component {
@@ -97,7 +99,8 @@ constructor(props) {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button href="/profile" color="primary" className="px-4">Login</Button>
+                          <GoogleAuth className="px-4"/>
+                          <FacebookLogin/>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "server": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "covidatlas": "npm run start --prefix covidatlas",
@@ -19,6 +19,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.3"
   }
 }

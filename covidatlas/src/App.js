@@ -64,18 +64,18 @@ class App extends Component{
         <Router>
           <React.Suspense fallback={loading()}>
             {/*<Switch>*/}
-            <switch>
+            <Switch>
               <Route path="/" exact  name="Home" component={HomePageHeader} />
               <Route path="/register" exact  name="Home" component={HomePageHeader} />
               <Route path="/login" exact  name="Home" component={HomePageHeader} />
 
-            </switch>
+            </Switch>
 
             
               {/*<Route path="/login" exact component={HomePageHeader} />*/}
               <Route path="/" exact  name="Home" component={Body} />
-             
-              <switch>
+              
+              <Switch>
               <Route path="/login" exact name="Login Page" render={props => <Login {...props}/>} />
               <Route path="/register" exact name="Register Page" render={props => <Register {...props}/>} />
               <Route path="/404" exact name="Page 404" render={props => <Page404 {...props}/>} />
@@ -84,7 +84,7 @@ class App extends Component{
 
               <Route path="/pff" exact name="pff" render={props => <Pageform {...props}/>} />              
               <Route path="/lg" exact name="lg" render={props => <ListGroups {...props}/>} />         
-              </switch>
+              </Switch>
               
               {/*<Route path="/login" exact component={SignBody} />*/}
               <Footer />
