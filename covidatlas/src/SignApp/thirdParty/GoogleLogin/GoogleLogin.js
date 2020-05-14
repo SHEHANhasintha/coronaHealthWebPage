@@ -28,7 +28,7 @@ class FacebookLogin extends Component{
 		return(
 			<div>
 				<GoogleLg
-				    clientId="336956677618-ve5259b70qqsff8b9n2cua0tq5llaehd.apps.googleusercontent.com"
+				    clientId="336956677618-qatmh1dqudm3b6isa9gu0ajk2aeec6la.apps.googleusercontent.com"
 				    buttonText="Login"
 				    onClick = {this.clicked}
 				    onSuccess={this.responseGoogle}
