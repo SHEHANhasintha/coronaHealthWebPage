@@ -19,7 +19,7 @@ class FacebookLogin extends Component{
 		return(
 			<div>
 				<FacebookLg
-				appId="1088597931155576"
+				appId="232331721389865"
 				autoLoad={false}
 				fields="name,email,picture"
 				onClick={this.componentClicked}
