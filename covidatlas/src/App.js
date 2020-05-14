@@ -74,8 +74,8 @@ class App extends Component{
             
               {/*<Route path="/login" exact component={HomePageHeader} />*/}
               <Route path="/" exact  name="Home" component={Body} />
-              
               <Switch>
+
               <Route path="/login" exact name="Login Page" render={props => <Login {...props}/>} />
               <Route path="/register" exact name="Register Page" render={props => <Register {...props}/>} />
               <Route path="/404" exact name="Page 404" render={props => <Page404 {...props}/>} />
