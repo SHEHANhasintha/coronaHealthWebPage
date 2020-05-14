@@ -20,7 +20,7 @@ class FacebookLogin extends Component{
 			<div>
 				<FacebookLg
 				appId="1088597931155576"
-				autoLoad={true}
+				autoLoad={false}
 				fields="name,email,picture"
 				onClick={this.componentClicked}
 				callback={this.responseFacebook} />

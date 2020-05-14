@@ -13,7 +13,7 @@ class HomePageHeader extends Component{
         <div className="row align-items-center">
             
             <div className="col-6 col-md-3 col-xl-4  d-block">
-            <h1 className="mb-0 site-logo"><a href="index.html" className="text-black h2 mb-0">Covid Atlas<span className="text-primary">.</span> </a></h1>
+            <h1 className="mb-0 site-logo"><a href="/" className="text-black h2 mb-0">Covid Atlas<span className="text-primary">.</span> </a></h1>
             </div>
 
             <div className="col-12 col-md-9 col-xl-8 main-menu">
