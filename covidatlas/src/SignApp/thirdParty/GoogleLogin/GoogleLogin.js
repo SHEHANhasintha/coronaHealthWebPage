@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLg from 'react-google-login';
-
+import './google.css';
 
 class FacebookLogin extends Component{
 	constructor(props){
@@ -33,7 +33,9 @@ class FacebookLogin extends Component{
 				    onClick = {this.clicked}
 				    onSuccess={this.responseGoogle}
 				    onFailure={this.responseGoogle}
-				    cookiePolicy={'single_host_origin'} />
+				    cookiePolicy={'single_host_origin'} 
+					cssClass="my-Google-button-class loginBtn--google"
+				    />
 			</div>
 		);
 	}

@@ -3,6 +3,10 @@ import React, { Component } from '../../node_modules/react';
 import './Footer.css';
 
 class Footer extends Component{
+  constructor(props){
+    super(props);
+
+  }
 
   render(){
     return (

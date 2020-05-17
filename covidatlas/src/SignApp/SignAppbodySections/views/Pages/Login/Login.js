@@ -99,13 +99,19 @@ constructor(props) {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          {/*<GoogleAuth className="px-4"/>
-                          <Button href="/profile" color="primary" className="px-4">Login</Button>*/}
-                          <FacebookLogin/>
-                          <GoogleAuth/>
+                          <Button href="/profile" color="primary" className="px-4">Login</Button>
+
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col xs="36">
+                          <FacebookLogin />
+                        </Col>
+                        <Col xs="36">
+                          <GoogleAuth/>
                         </Col>
                       </Row>
                     </Form>

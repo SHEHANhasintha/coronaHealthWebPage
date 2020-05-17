@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import FacebookLg from 'react-facebook-login';
+import './Facebook.css';
 
 
 class FacebookLogin extends Component{
@@ -18,12 +19,14 @@ class FacebookLogin extends Component{
 	render(){
 		return(
 			<div>
-				<FacebookLg
+				<FacebookLg 
 				appId="232331721389865"
 				autoLoad={false}
 				fields="name,email,picture"
 				onClick={this.componentClicked}
-				callback={this.responseFacebook} />
+				callback={this.responseFacebook} 
+				cssClass="my-facebook-button-class"
+				/>
 			</div>
 		);
 	}
