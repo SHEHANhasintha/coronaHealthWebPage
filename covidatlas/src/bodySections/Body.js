@@ -8,32 +8,20 @@ import ContactUs from './ContactUs';
 import ReactDOM from 'react-dom'
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 
-//import { TryProvider } from './../contextApi/MyProvider';
-//import UserContext from '././/UserContext'
-import { TryProvider , TryContext } from './../contextApi/TryContext';
-
-
 function Body(props){
-    //static contextType = TryProvider;
-      const value = useContext(TryContext);
-
 
     const clicked = (e) => {
         e.preventDefault();
-        //console.log("ddddddddddddddddddddddddddddddddddddddd");
     }
 
   useEffect(function() {
-    console.log("dsdsdsdssdsdsdsd")
-    console.log(value)
     return function cleanup() {
-      console.log("gggggggggg")
+      //console.log("gggggggggg")
     }
   }, []);
 
     return (
         <div>
-            <h1>{value} </h1>
             <BodySectionLanding {...props} clicked={clicked} patient={props.patient} pharmisist={props.pharmisist}/>
             <BodyFeatures />
             <BodyBigFeatures />
