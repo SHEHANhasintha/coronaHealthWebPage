@@ -7,7 +7,6 @@ import Footer from './footer/Footer';
 import SignBody from './SignApp/SignAppbodySections/Body.js';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './SignApp/SignAppbodySections/App.scss';
-import { TryProvider , TryContext } from './contextApi/TryContext';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -26,8 +25,6 @@ const ListGroups = React.lazy(() => import('./SignApp/SignAppbodySections/views/
 
 function App(props){
 
-  const {value} = useContext(TryContext);
-
   const state = { 
               users: [],
               patient : "false",
@@ -40,28 +37,20 @@ function App(props){
   }
 
   useEffect(function() {
-    console.log("dsdsdsdssdsdsdsd")
-    console.log(value)
-    return function cleanup() {
-      console.log("gggggggggg")
-    }
+    //input code here
   }, []);
 
     return ( 
           <div className="App">
-            <h1>{value}</h1>
-            /*<Router>
+            <Router>
               <React.Suspense fallback={loading()}>
                 <Switch>
-                  <TryProvider>
                     <Route path="/" exact  name="Home"  render={props => <HomePageHeader {...props} />}/>
                     <Route path="/register" exact  name="Home" component={HomePageHeader} />
                     <Route path="/login" exact  name="Home" component={HomePageHeader} />
-                  </TryProvider>
                 </Switch>
                   <Route path="/" exact  name="Home" render={props => <Body {...props} clicked={clicked} patient={state.patient} pharmisist={state.pharmisist}/>} />
                     <Switch>
-                      <TryProvider>
                         <Route path="/login" exact name="Login Page" render={props => <Login {...props}/>} />
                         <Route path="/register" exact name="Register Page" render={props => <Register {...props}/>} />
                         <Route path="/404" exact name="Page 404" render={props => <Page404 {...props}/>} />
@@ -69,11 +58,10 @@ function App(props){
                         <Route path="/profile" exact name="profile" render={props => <DefaultLayout {...props}/>} />
                         <Route path="/pff" exact name="pff" render={props => <Pageform {...props}/>} />              
                         <Route path="/lg" exact name="lg" render={props => <ListGroups {...props}/>} />     
-                      </TryProvider>
                     </Switch>
                   <Footer />
               </React.Suspense>
-            </Router>*/
+            </Router>
           </div>
         );
 
