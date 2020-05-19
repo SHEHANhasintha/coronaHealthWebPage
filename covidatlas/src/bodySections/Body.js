@@ -5,7 +5,9 @@ import BodyBigFeatures from './BodyBigFeatures.js';
 import BodyAboutUs from './BodyAboutUs';
 import OurTeam from './OurTeam';
 import ContactUs from './ContactUs';
+import Footer from './../footer/Footer';
 import ReactDOM from 'react-dom'
+import './Body.css'
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 
 function Body(props){
@@ -21,13 +23,14 @@ function Body(props){
   }, []);
 
     return (
-        <div>
+        <div className="contain_main_page">
             <BodySectionLanding {...props} clicked={clicked} patient={props.patient} pharmisist={props.pharmisist}/>
             <BodyFeatures />
             <BodyBigFeatures />
             <BodyAboutUs />
             <OurTeam />
             <ContactUs />
+            <Footer/>
         </div>
         
     );
@@ -37,37 +40,3 @@ function Body(props){
 export default Body;
 
 
-
-
-/*
-class Body extends Component{
-    //static contextType = TryProvider;
-
-    constructor(props){
-        super(props);
-        this.props = props;
-    this.clicked = this.clicked.bind(this);
-    }
-
-    clicked = (e) => {
-    e.preventDefault();
-    //console.log("ddddddddddddddddddddddddddddddddddddddd");
-    }
-  render(){
-    //console.log(TryProvider);
-    return (
-        <div>
-            <BodySectionLanding {...this.props} clicked={this.clicked} patient={this.props.patient} pharmisist={this.props.pharmisist}/>
-            <BodyFeatures />
-            <BodyBigFeatures />
-            <BodyAboutUs />
-            <OurTeam />
-            <ContactUs />
-        </div>
-        
-    );
-  }
-}
-
-export default Body;
-*/

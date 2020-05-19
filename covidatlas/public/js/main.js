@@ -222,12 +222,13 @@ jQuery(document).ready(function($) {
    	$("body").on("click", ".main-menu li a[href^='#'], .smoothscroll[href^='#'], .site-mobile-menu .site-nav-wrap li a", function(e) {
       e.preventDefault();
 
-      var hash = this.hash;
+      var hash = e.target;
+      var url = e.target.href;
 
       $('html, body').animate({
-        'scrollTop': $(hash).offset().top - 0
+        'scrollTop': $(hash).offset().left - 0
       }, 1000, 'easeInOutCirc', function(){
-        window.location.hash = hash;
+        window.location = url;
       });
 
     });

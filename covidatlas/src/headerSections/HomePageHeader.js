@@ -7,6 +7,16 @@ class HomePageHeader extends Component{
   render(){
     return (
       <div className="HomePageHeader">
+
+        <div className="site-mobile-menu site-navbar-target">
+          <div className="site-mobile-menu-header">
+            <div className="site-mobile-menu-close mt-3">
+              <span className="icon-close2 js-menu-toggle"></span>
+            </div>
+          </div>
+          <div className="site-mobile-menu-body"></div>
+        </div>
+
         <div id="sticky-wrapper" className="sticky-wrapper" style={{height: "80.125px"}}><header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner" >
 
         <div className="container">
@@ -25,28 +35,28 @@ class HomePageHeader extends Component{
                 <li className="has-children">
                     <a href="#about-section" className="nav-link">About Us</a>
                     <ul className="dropdown arrow-top">
-                    <li><a href="#" target="_blank" className="nav-link"><span className="text-primary">More Free Templates</span></a></li>
+                    <li><a href="!#" target="_blank" className="nav-link"><span className="text-primary">More Free Templates</span></a></li>
                     <li><a href="#our-team-section" className="nav-link">Our Team</a></li>
                     <li className="has-children">
                         <a href="#">More Links</a>
                         <ul className="dropdown">
-                        <li><a href="#">Menu One</a></li>
-                        <li><a href="#">Menu Two</a></li>
-                        <li><a href="#">Menu Three</a></li>
+                        <li><a href="!#">Menu One</a></li>
+                        <li><a href="!#">Menu Two</a></li>
+                        <li><a href="!#">Menu Three</a></li>
                         </ul>
                     </li>
                     </ul>
                 </li>
 
                 <li><a href="#contact-section" className="nav-link">Contact</a></li>
-                <li><a href="/register" className="nav-link btn btn-primary mr-2 mb-2">Sign up</a></li>
+                <li><a href="/signUp" className="nav-link btn btn-primary mr-2 mb-2">Sign up</a></li>
                 <li><a href="/login" className="nav-link btn btn-primary mr-2 mb-2" style={{height:"15px",lineHeight:"0px"}}>Login</a></li>
                 </ul>
             </nav>
             </div>
 
 
-            <div className="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span className="icon-menu h3"></span></a></div>
+            <div className="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="!#" className="site-menu-toggle js-menu-toggle text-black float-right"><span className="icon-menu h3"></span></a></div>
 
         </div>
         </div>

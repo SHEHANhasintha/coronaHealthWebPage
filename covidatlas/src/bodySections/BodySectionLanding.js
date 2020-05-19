@@ -6,7 +6,6 @@ class BodySectionLanding extends Component{
     constructor(props){
         super(props);
         this.clicked = this.clicked.bind(this);
-        //console.log(this.state);
         this.state = {
             patient : props.patient,
             pharmisist : props.pharmisist
@@ -17,7 +16,7 @@ class BodySectionLanding extends Component{
 
 
     componentDidMount(){
-        //console.log('ffffffffffffffffffffff',this.props)
+        //any function
     }
 
 
@@ -26,7 +25,6 @@ class BodySectionLanding extends Component{
         this.setState({patient : "true"});
         
         //console.log(this.state,this.props)
-
         //window.location = "/register"
     } 
 
@@ -34,16 +32,11 @@ class BodySectionLanding extends Component{
   render(){
     return (
         <div className="site-blocks-cover" style={{overflow: "hidden"}}>
-
             <div className="container">
                 <div className="row align-items-center justify-content-center">
-
                 <div className="col-md-12 aos-init aos-animate" style={{position:"relative"}} data-aos="fade-up" data-aos-delay="200">
-                    
-                    <img src="images/phramcy2.png" alt="Image" className="img-fluid img-absolute"/>
-
+                    <img src="images/phramcy2.png" alt="phramcy" className="img-fluid img-absolute"/>
                     <div className="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-
                     <div className="col-lg-6 mr-auto">
                         <h1>LET US CARE ABOUT YOUR MEDICIEN</h1>
                         <div className="row mb-4 aos-init aos-animate">
@@ -61,14 +54,11 @@ class BodySectionLanding extends Component{
                             </div>
                         </div>
                     </div>
-                    
-                    
                     </div>
-
                 </div>
                 </div>
             </div>
-            </div>
+        </div>
     );
   }
 }
