@@ -4,10 +4,12 @@ import './App.css';
 import HomePageHeader from './headerSections/HomePageHeader.js';
 import Body from './bodySections/Body.js';
 import Footer from './footer/Footer';
-//import SignBody from './SignApp/SignAppbodySections/Body.js';
-//import signAppRouter from './reDesignSignAndregister/signAppRouter';
+
 import {BrowserRouter, Router, Switch, Route, Redirect} from 'react-router-dom';
 
+require('dotenv').config({ path: './../.env' });
+
+const loader = process.env.REACT_APP_DOC_TITLE;
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -35,6 +37,7 @@ function App(props){
 
     return ( 
           <div className="App">
+          {console.log(loader)}
             <BrowserRouter>
               <React.Suspense fallback={loading()}>
                 <Switch>

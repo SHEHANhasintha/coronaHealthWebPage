@@ -25,6 +25,8 @@
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "css-loader": "^3.5.2",
+    "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "flag-icon-css": "^3.4.6",
@@ -50,9 +52,9 @@
     "simple-line-icons": "^2.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "env-cmd -f .env.development react-scripts start",
+    "build": "env-cmd -f .env.development react-scripts build",
+    "test": "env-cmd -f react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

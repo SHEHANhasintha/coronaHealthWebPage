@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config({ path: './.env.development' });
+
 const port = process.env.PORT || 5000;
 
 var indexRouter = require('./routes/index');
@@ -13,6 +15,8 @@ app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+
+console.log(process.env.ENVFILE);
 
 app.use(logger('dev'));
 app.use(express.json());

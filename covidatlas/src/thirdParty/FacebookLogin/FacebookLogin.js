@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import FacebookLg from 'react-facebook-login';
 import './Facebook.css';
 
+import axios from 'axios';
 
 class FacebookLogin extends Component{
 	constructor(props){
