@@ -7,10 +7,6 @@ import Footer from './footer/Footer';
 
 import {BrowserRouter, Router, Switch, Route, Redirect} from 'react-router-dom';
 
-require('dotenv').config({ path: './../.env' });
-
-const loader = process.env.REACT_APP_DOC_TITLE;
-
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
 const AuthenticationSignIn = React.lazy(() => import('./reDesignSignAndregister/signIn'));
@@ -37,7 +33,6 @@ function App(props){
 
     return ( 
           <div className="App">
-          {console.log(loader)}
             <BrowserRouter>
               <React.Suspense fallback={loading()}>
                 <Switch>
