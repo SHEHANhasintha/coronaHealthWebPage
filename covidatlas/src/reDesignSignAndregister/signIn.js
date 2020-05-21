@@ -18,6 +18,9 @@ import Header from './../headerSections/HomePageHeader';
 import FaceBook from './../thirdParty/FacebookLogin/FacebookLogin';
 import GoogleLogin from './../thirdParty/GoogleLogin/GoogleLogin';
 
+
+import { ThemeContext } from './../contexts/ThemeContext';
+
 import axios from 'axios';
 
 function Copyright() {
@@ -89,7 +92,10 @@ export default function SignInSide() {
   var [background,setbackground] = useState('https://api.unsplash.com/photos/random?client_id=eA8h1lVdYjJhbv2pSPaB5PDStYH-7dkJRBOz5YWV1dI');
 
   return (
+ <ThemeContext.Consumer>
+  {(context) => 
      <Grid container component="main" className={classes.root}>
+     {console.log(context)}
      <Header/>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} style={{'backgroundImage':`url(${background})`}} className={classes.image} />
@@ -113,17 +119,6 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -159,8 +154,10 @@ export default function SignInSide() {
         <GoogleLogin/>
         <Footer/>
       </Grid>
-
     </Grid>
+
+}  
+</ThemeContext.Consumer>
   );
 }
 

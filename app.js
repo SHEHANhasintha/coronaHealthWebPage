@@ -16,8 +16,6 @@ app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
-console.log(process.env.ENVFILE);
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
