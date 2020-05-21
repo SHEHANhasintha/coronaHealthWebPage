@@ -53,7 +53,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.development react-scripts start",
-    "build": "env-cmd -f .env.development react-scripts build",
+    "build": " react-scripts build",
     "test": "env-cmd -f react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
