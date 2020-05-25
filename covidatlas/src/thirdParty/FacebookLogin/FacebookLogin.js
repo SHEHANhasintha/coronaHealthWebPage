@@ -14,14 +14,14 @@ class FacebookLogin extends Component{
 
 	responseFacebook = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	      console.log(res);
-	      console.log(context);
+	      //console.log(res);
+	      //console.log(context);
 	      let thita = {}
 
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-
+	      console.log(thita,"kkkkkk");
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios

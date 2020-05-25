@@ -52,8 +52,8 @@ const checkLoggin = (req,res,next) => {
 
 const local = (req,res,next) => {
 	reqData = {
-		email : req.body.email,
-		password : req.body.password
+		email : req.body.email.trim(),
+		password : req.body.password.trim()
 	}
 	next();
 }
@@ -61,7 +61,7 @@ const local = (req,res,next) => {
 const fbCheckup = (req,res,next) => {
 	console.log(req);
 	reqData = {
-		email : req.body.email,
+		email : req.body.email.trim(),
 		password : "\2=*=N98L{LSJg35QNJ_`d58zxtA[x/bTUD$nsQG]~>6whx2}8P5\Apf6u;]<N)],K\`+Rn[,x4/u>/d"
 	}
 	next();
@@ -70,7 +70,7 @@ const fbCheckup = (req,res,next) => {
 const googleCheckup = (req,res,next) => {
 	console.log(req);
 	reqData = {
-		email : req.body.email,
+		email : req.body.email.trim(),
 		password : "\2=*=N98L{LSJg35QNJ_`d58zxtA[x/bTUD$nsQG]~>6whx2}8P5\Apf6u;]<N)],K\`+Rn[,x4/u>/d"
 	}
 	next();
