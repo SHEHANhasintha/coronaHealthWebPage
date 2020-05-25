@@ -8,7 +8,6 @@ class FacebookLogin extends Component{
 	constructor(props){
 		super(props);
 		this.responseGoogle = this.responseGoogle.bind(this);
-
 	}
 
 	responseGoogle = (res) => {

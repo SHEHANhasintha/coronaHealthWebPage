@@ -3,10 +3,7 @@ import './App.css';
 import HomePageHeader from './headerSections/HomePageHeader.js';
 import Body from './bodySections/Body.js';
 import Footer from './footer/Footer';
-import BookList from './book'
 
-import ThemeContextProvider from './contexts/ThemeContext';
-//import ThemeToggle from './components/ThemeToggle';
 import AuthContextProvider from './contexts/AuthContext';
 
 import {BrowserRouter, Router, Switch, Route, Redirect} from 'react-router-dom';
@@ -26,7 +23,7 @@ function App(props){
 
     return ( 
           <div className="App">
-            <ThemeContextProvider>
+            <AuthContextProvider>
               <BrowserRouter>
                 <React.Suspense fallback={loading()}>
                   <Switch>
@@ -41,7 +38,7 @@ function App(props){
                       </Switch>
                 </React.Suspense>
               </BrowserRouter>
-            </ThemeContextProvider>
+            </AuthContextProvider>
           </div>
         );
 }

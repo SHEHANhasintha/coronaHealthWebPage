@@ -19,7 +19,7 @@ import FaceBook from './../thirdParty/FacebookLogin/FacebookLogin';
 import GoogleLogin from './../thirdParty/GoogleLogin/GoogleLogin';
 
 
-import { ThemeContext } from './../contexts/ThemeContext';
+import { AuthContext } from './../contexts/AuthContext';
 
 import axios from 'axios';
 
@@ -68,10 +68,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
   
 export default function SignInSide() {
   const classes = useStyles();
-
+  //console.log(process.env);
   function filter(images){
     return (new Promise((resolve,reject) => {
     let num = Math.floor(Math.random() * Math.floor(30));
@@ -88,14 +90,49 @@ export default function SignInSide() {
         .then(imgUrl => setbackground(imgUrl))
   },[background]);
 
+  const submitCredentials = (e,context,cb) => {
+    e.preventDefault();
+    //callback function would be to call toggleAuth
+    return(new Promise(async(resolve,reject) => {
+      //console.log(context);
+      let thita = {}
+      thita.email = context.email;
+      thita.password = context.password;
+
+
+
+      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");
+      axios
+        .post(process.env.REACT_APP_APPLICATION_PROXY + "/auth/local",thita)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+      //await resolve(cb());
+    }))
+  }
+
+  const handleChangeEmailField = (e,cb) => {
+    e.preventDefault();
+    //callback function would be to call updateEmail
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb(e.target.value.trim()));
+    }))
+  }
+
+  const handleChangePasswordFiled = (e,cb) => {
+    e.preventDefault();
+    //callback function would be to call updatePassword
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb(e.target.value.trim()))
+    }))
+  } 
+
   var url = 'https://api.unsplash.com/search/photos?page=1&per_page=30&query=pills&client_id=eA8h1lVdYjJhbv2pSPaB5PDStYH-7dkJRBOz5YWV1dI'
   var [background,setbackground] = useState('https://api.unsplash.com/photos/random?client_id=eA8h1lVdYjJhbv2pSPaB5PDStYH-7dkJRBOz5YWV1dI');
 
   return (
- <ThemeContext.Consumer>
+ <AuthContext.Consumer>
   {(context) => 
      <Grid container component="main" className={classes.root}>
-     {console.log(context)}
      <Header/>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} style={{'backgroundImage':`url(${background})`}} className={classes.image} />
@@ -110,6 +147,7 @@ export default function SignInSide() {
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
+              onChange={(e) => handleChangeEmailField(e,context.updateEmail)}
               variant="outlined"
               margin="normal"
               required
@@ -120,6 +158,17 @@ export default function SignInSide() {
               autoComplete="email"
               autoFocus
             />
+              <TextField
+                onChange={(e) => handleChangePasswordFiled(e,context.updatePassword)}
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -129,7 +178,8 @@ export default function SignInSide() {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              className={classes.submit} 
+              onClick={(e) => submitCredentials(e,context,context.toggleAuth).then(() => console.log(context))}
             >
               Sign In
             </Button>
@@ -157,7 +207,7 @@ export default function SignInSide() {
     </Grid>
 
 }  
-</ThemeContext.Consumer>
+</AuthContext.Consumer>
   );
 }
 

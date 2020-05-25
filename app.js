@@ -1,27 +1,38 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors')
+const bodyparser = require('body-parser')
+const router = express.Router();
+const mongodb = require('./database/loginHandler/mongoDbconnection');
 
 require('dotenv').config({ path: './.env.development' });
-
 const port = process.env.PORT || 5000;
+const indexRouter = require('./routes/index');
+const authenticationHandlerLocal = require('./routes/auth/authLocal');
 
-var indexRouter = require('./routes/index');
+//console.log(process.env.DBSERVER)
 
 var app = express();
 app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+//default router path
+app.set('routes', path.resolve(__dirname, './routes'));
 
+app.use(cors());
 app.use(logger('dev'));
-app.use(express.json());
+app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//database preperation
+mongodb._connect();
+
 app.use('/', indexRouter);
+app.use('/auth', authenticationHandlerLocal);
 
 app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "./covidatlas/build", "index.html"));
