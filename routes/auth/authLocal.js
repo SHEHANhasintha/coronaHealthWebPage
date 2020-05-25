@@ -12,11 +12,7 @@ router.use(bodyParser.raw());
 
 const { checkLoggin, sendres, local, fbCheckup, googleCheckup } = require('./middleware');
 
-router.post('/local', (req, res) => {
-	res.json({
-		login : false
-	});
-});
+router.post('/local' , local, checkLoggin, sendres, (req, res) => {});
 
 router.post('/facebook',fbCheckup , checkLoggin, sendres, (req, res) => {});
 
