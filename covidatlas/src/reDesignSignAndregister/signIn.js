@@ -103,7 +103,7 @@ export default function SignInSide() {
 
       console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");
       axios
-        .post(process.env.REACT_APP_APPLICATION_PROXY + "/auth/local",thita)
+        .post("/auth/local",thita)
         .then((res) => console.log(res))
         .catch((err) => console.log(err))
       //await resolve(cb());
