@@ -11,7 +11,7 @@ class FacebookLogin extends Component{
 	}
 
 	responseGoogle = (res) => {
-		console.log(res);
+		console.log(res.Tt.Du);
 
 	}
 

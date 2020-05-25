@@ -22,17 +22,17 @@ let reqData = {};
 const checkLoggin = (req,res,next) => {
 
 	//console.log(http);
-	//console.log(reqData);
-	//transever(req.body.email,req.body.password,console.log)
+	console.log(reqData);
+	transever(req.body.email,req.body.password,console.log)
 	
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
-	//console.log(userNameValidated,passwordValidated);
+	console.log(userNameValidated,passwordValidated);
 
 	if (userNameValidated && passwordValidated){
 		//transever(req.body.email,req.body.password,console.log)
 		let token;
-		retrive(reqData.email,reqData.password)
+		retrive(reqData.email,reqData.password.trim())
 			.then((value) => {
 				if (value == true){
 					token = tokenGenerator(50);
@@ -61,10 +61,10 @@ const local = (req,res,next) => {
 }
 
 const fbCheckup = (req,res,next) => {
-	console.log(req);
+	//console.log(req);
 	reqData = {
 		email : req.body.email.trim(),
-		password : "\2=*=N98L{LSJg35QNJ_`d58zxtA[x/bTUD$nsQG]~>6whx2}8P5\Apf6u;]<N)],K\`+Rn[,x4/u>/d"
+		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
 	}
 	next();
 }
@@ -73,7 +73,7 @@ const googleCheckup = (req,res,next) => {
 	console.log(req);
 	reqData = {
 		email : req.body.email.trim(),
-		password : "\2=*=N98L{LSJg35QNJ_`d58zxtA[x/bTUD$nsQG]~>6whx2}8P5\Apf6u;]<N)],K\`+Rn[,x4/u>/d"
+		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
 	}
 	next();
 }

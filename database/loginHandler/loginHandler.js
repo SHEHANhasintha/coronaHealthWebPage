@@ -25,6 +25,7 @@ let retrive =   (email,password) => {return(new Promise(async (resolve,reject) =
 			'password' : password.trim()
 		}
 		await EmailModel.findOne(details,function(err,users){
+			console.log(users,"rrtttttttttttt");
 			if (err) {
 				resolve("error occured")
 			}
