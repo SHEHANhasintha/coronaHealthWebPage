@@ -20,9 +20,12 @@ let statusCode = 404;
 let reqData = {};
 
 const checkLoggin = (req,res,next) => {
+			statusCode = 200
+		next();
 	//console.log(http);
 	//console.log(reqData);
 	//transever(req.body.email,req.body.password,console.log)
+	/*
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
 	//console.log(userNameValidated,passwordValidated);
@@ -46,7 +49,7 @@ const checkLoggin = (req,res,next) => {
 	}else{
 		statusCode = 204
 		next();
-	}
+	}*/
 	
 }
 
