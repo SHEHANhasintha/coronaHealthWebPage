@@ -22,12 +22,12 @@ let reqData = {};
 const checkLoggin = (req,res,next) => {
 
 	//console.log(http);
-	console.log(reqData);
-	transever(req.body.email,req.body.password,console.log)
+	//console.log(reqData);
+	//transever(req.body.email,req.body.password,console.log)
 	
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
-	console.log(userNameValidated,passwordValidated);
+	//console.log(userNameValidated,passwordValidated);
 
 	if (userNameValidated && passwordValidated){
 		//transever(req.body.email,req.body.password,console.log)
@@ -70,7 +70,7 @@ const fbCheckup = (req,res,next) => {
 }
 
 const googleCheckup = (req,res,next) => {
-	console.log(req);
+	//console.log(req,"tttttttttttttttttttttttttttt");
 	reqData = {
 		email : req.body.email.trim(),
 		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
