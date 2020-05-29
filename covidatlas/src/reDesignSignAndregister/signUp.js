@@ -13,12 +13,17 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 import Header from './../headerSections/HomePageHeader';
 import Footer from './../footer/Footer';
 import FaceBook from './../thirdParty/FacebookLogin/FacebookLogin';
 import GoogleLogin from './../thirdParty/GoogleLogin/GoogleLogin';
 
 import axios from 'axios';
+
+import { AuthContext } from './../contexts/AuthContext';
+import { ThemeContext } from './../contexts/ThemeContext';
+import ReactFormInputValidation from 'react-form-input-validation';
 
 function Copyright() {
   return (
@@ -33,9 +38,13 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+
+let useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1)
+    }
   },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -63,9 +72,16 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  toggleBackground: {
+    backgroundColor: '#f00'
+  },
+  toggleBack: {
+    backgroundColor: '#0f0'
+  }
 }));
 
-export default function SignInSide() {
+
+export default function SignInSide(props) {
   const classes = useStyles();
 
   function filter(images){
@@ -84,11 +100,191 @@ export default function SignInSide() {
         .then(imgUrl => setbackground(imgUrl))
   },[background]);
 
+  const submitCredentials = (e,context,cb,toggleTheme) => {
+    e.preventDefault();
+    //callback function would be to call toggleAuth
+    return(new Promise(async(resolve,reject) => {
+      //console.log(context);
+      let thita = {}
+      thita.firstName = context.firstName;
+      thita.lastName = context.lastName;
+      thita.agreement = context.licenceCheckOut;
+      thita.email = context.email;
+      thita.password = context.password;
+
+      checkValidation(context,cb,toggleTheme)
+
+        //console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");
+       if (context.validation){ 
+        axios
+          .post("/auth/signin/local",thita)
+          .then((res) => {
+            console.log(res.status)
+            if (res.status == 200){
+              props.history.push('/app')
+            }
+          })
+          .catch((err) => console.log(err))
+        //await resolve(cb());
+      }
+
+
+    }))
+  }
+
+  const handleChangeEmailField = (e,cb,context) => {
+    e.preventDefault();
+    //callback function would be to call updateEmail
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb(e.target.value.trim()));
+    }))
+  }
+
+  const handleChangePasswordFiled = (e,cb,context) => {
+    e.preventDefault();
+    //callback function would be to call updatePassword
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb(e.target.value.trim()))
+    }))
+  } 
+
+  const handleChangefirstNameField = (e,cb,context) => {
+    e.preventDefault();
+    //callback function would be to call updateEmail
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb(e.target.value.trim()));
+    }))
+  }
+
+  const handleChangeLastNameField = (e,cb,context) => {
+    e.preventDefault();
+    //callback function would be to call updatePassword
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb(e.target.value.trim()))
+    }))
+  } 
+
+  const handleChangeRepeatPasswordFiled = (e,cb,context) => {
+    e.preventDefault();
+    //callback function would be to call updatePassword
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb(e.target.value.trim()))
+    }))
+  } 
+
+  const handleChangeLicenceCheckbox = (e,cb,context) => {
+    e.preventDefault();
+    //callback function would be to call updatePassword
+    return(new Promise(async(resolve,reject) => {
+      await resolve(cb())
+    }))
+  }
+
+  let cls = {
+    backgroundColor : '#f00'
+  }
+
+  const checkValidation = (context,cb,toggleTheme) => {
+
+    var regexEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    var regexFirstName = new RegExp(/[a-z]{1,10}/);
+    var regexLastName = new RegExp(/[a-z]{1,10}/);
+    var regexPassword = new RegExp(/(?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*/);
+
+    var validRegexEmail = regexEmail.test(context.email);
+    var validRegexFirstName = regexFirstName.test(context.firstName);
+    var validRegexLastName = regexLastName.test(context.lastName);
+    var validRegexPassword = regexPassword.test(context.password);
+    var validRegexRepeatPassword;
+    var validLicenceCheckOut = context.licenceCheckOut;
+
+    if (context.password == context.repeatPassword){
+      validRegexRepeatPassword = true
+    }else{
+      validRegexRepeatPassword = false
+    }
+
+    console.log(validRegexEmail,validRegexFirstName,validRegexLastName,validRegexPassword,validRegexRepeatPassword,validLicenceCheckOut);
+
+    if (!validRegexEmail &&
+     !validRegexFirstName &&
+     !validRegexLastName &&
+     !validRegexPassword &&
+     !validRegexRepeatPassword && 
+     !validLicenceCheckOut){
+      cb(false);
+    }else{
+      cb(true);
+    }
+
+    toggleTheme(true,
+      !validRegexEmail,
+      !validRegexFirstName,
+      !validRegexLastName,
+      !validRegexPassword,
+      !validRegexRepeatPassword,
+      !validLicenceCheckOut
+      );
+    
+  }
+
+
   var url = 'https://api.unsplash.com/search/photos?page=1&per_page=30&query=pills&client_id=eA8h1lVdYjJhbv2pSPaB5PDStYH-7dkJRBOz5YWV1dI'
   var [background,setbackground] = useState('https://api.unsplash.com/photos/random?client_id=eA8h1lVdYjJhbv2pSPaB5PDStYH-7dkJRBOz5YWV1dI');
 
+  let theme;
+  let isLightTheme, light, dark;
+
+  const themeContextTogglerStart = (themeContext) => {
+
+    isLightTheme= themeContext.isLightTheme;
+    light= themeContext.light;
+    dark= themeContext.dark;
+    theme = isLightTheme ? light : dark;
+  }
+
+
+  const themeContextToggler = (themeContextValue,themeContext) => {
+
+    switch (themeContextValue){
+      case 'firstName':
+        if (themeContext.firstName) return dark.ui;
+        else return light.ui;
+
+      case 'lastName':
+        if (themeContext.lastName) return dark.ui;
+        else return light.ui;
+
+      case 'password':
+        if (themeContext.password) return dark.ui;
+        else return light.ui;
+
+      case 'email':
+        if (themeContext.email) return dark.ui;
+        else return light.ui;
+
+      case 'repeatPassword':
+        if (themeContext.repeatPassword) return dark.ui;
+        else return light.ui;
+
+      case 'license':
+        console.log(themeContext.licenceCheckOut);
+        if (themeContext.licenceCheckOut) return dark.ui;
+        else return light.ui;
+         
+      default:
+        return light.ui;
+    }
+
+  }
+
   return (
+   <AuthContext.Consumer>
+    {(context) => 
+      <ThemeContext.Consumer>
+      {(themeContext) => 
     <Grid container component="main" className={classes.root}>
+    {themeContextTogglerStart(themeContext)}
       <Header/>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} style={{'backgroundImage':`url(${background})`}} className={classes.image} />
@@ -104,55 +300,96 @@ export default function SignInSide() {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                error={themeContext.firstName}
+                helperText={themeContext.firstName ? "First name is required" : false}
+                onChange={(e) => handleChangefirstNameField(e,context.updateFirstName,context)}
                 autoComplete="fname"
                 name="firstName"
-                variant="outlined"
+                variant="filled"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
+                style={{backgroundColor:themeContextToggler('firstName',themeContext)}}
                 autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                variant="outlined"
+                error={themeContext.lastName}
+                helperText={themeContext.lastName ? "Last name is required" : false}
+                onChange={(e) => handleChangeLastNameField(e,context.updateLastName,context)}
+                variant="filled"
                 required
                 fullWidth
                 id="lastName"
                 label="Last Name"
                 name="lastName"
+                style={{backgroundColor:themeContextToggler('lastName',themeContext)}}
                 autoComplete="lname"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                error={themeContext.email}
+                helperText={themeContext.email ? "Email is required" : false}
+                onChange={(e) => handleChangeEmailField(e,context.updateEmail,context)}
+                variant="filled"
                 required
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
+                style={{backgroundColor:themeContextToggler('email',themeContext)}}
                 autoComplete="email"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                error={themeContext.password}
+                helperText={themeContext.password ? 
+                " at least 1 upper case character, at least 1 lower case character, at least 1 numerical character, at least 1 special character"
+                 : false}
+                onChange={(e) => handleChangePasswordFiled(e,context.updatePassword,context)}
+                variant="filled"
                 required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
+                style={{backgroundColor:themeContextToggler('password',themeContext)}}
                 autoComplete="current-password"
+              />
+            </Grid>
+
+
+            <Grid item xs={12}>
+              <TextField
+                error={themeContext.repeatPassword}
+                helperText={themeContext.repeatPassword ? "Confirm Password" : false}
+                onChange={(e) => handleChangeRepeatPasswordFiled(e,context.updateRepeatPassword,context)}
+                variant="filled"
+                required
+                fullWidth
+                className={classes.stylesToggleFill}
+                name="repeatPassword"
+                label="repeatPassword"
+                type="password"
+                style={{backgroundColor:themeContextToggler('repeatPassword',themeContext)}}
+                id="repeatPassword"
+                autoComplete="current-password"
+
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                control={<Checkbox value="allowExtraEmails" onChange={(e) => handleChangeLicenceCheckbox(e,context.updateLicenseCheck,context)} color="primary" style={{backgroundColor:themeContextToggler('license',themeContext)}}/>}
+                label="I agree to the CovidAtlas Terms of Services and Privacy policy."
               />
+          <Link href="#" color="inherit">
+           learn more
+          </Link>
             </Grid>
           </Grid>
           <Button
@@ -161,12 +398,13 @@ export default function SignInSide() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => submitCredentials(e,context,context.toggleValidation,themeContext.toggleTheme)}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -178,5 +416,9 @@ export default function SignInSide() {
         <Footer/>
       </Grid>
     </Grid>
+}
+</ThemeContext.Consumer> 
+} 
+</AuthContext.Consumer>
   );
 }

@@ -49,7 +49,7 @@ class HomePageHeader extends Component{
 
                 <li><a href="#contact-section" className="nav-link">Contact</a></li>
                 <li><a href="/signUp" className="nav-link btn btn-primary mr-2 mb-2">Sign up</a></li>
-                <li><a href="/login" className="nav-link btn btn-primary mr-2 mb-2" style={{height:"15px",lineHeight:"0px"}}>Login</a></li>
+                <li><a href="/login" className="nav-link btn btn-primary mr-2 mb-2">Login</a></li>
                 </ul>
             </nav>
             </div>

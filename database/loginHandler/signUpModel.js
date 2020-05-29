@@ -1,7 +1,8 @@
 let mongoose = require('mongoose');
 let validator = require('validator');
 mongoose.set('useCreateIndex', true);
-const loginSchema = new mongoose.Schema({
+
+const signUpSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -12,14 +13,9 @@ const loginSchema = new mongoose.Schema({
     }
   },
   password: {
-  	type: String,
-  	required: true,
-  	unique: true
-  },
-  token: {
-  	type: String,
-  	required: false,
-  	unique: true
+    type: String,
+    required: true,
+    unique: true
   },
   firstName: {
     type: String,
@@ -34,8 +30,9 @@ const loginSchema = new mongoose.Schema({
     required: false
   }
 
-
 })
 
+const signUpSchemaUsersDB = mongoose.model('Users',signUpSchema);
+
 //when you include "Login" instead of "Logger", it throws an error
-module.exports = mongoose.model('Users',loginSchema)
+module.exports = { signUpSchemaUsersDB }

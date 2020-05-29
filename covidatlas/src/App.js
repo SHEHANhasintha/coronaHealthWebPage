@@ -5,6 +5,10 @@ import Body from './bodySections/Body.js';
 import Footer from './footer/Footer';
 
 import AuthContextProvider from './contexts/AuthContext';
+import ThemeContextProvider from './contexts/ThemeContext';
+
+import Application from './app/app'
+import { ProtectedRoute } from './protectedRoute'
 
 import {BrowserRouter, Router, Switch, Route, Redirect} from 'react-router-dom';
 
@@ -14,6 +18,8 @@ const AuthenticationSignIn = React.lazy(() => import('./reDesignSignAndregister/
 const AuthenticationSignUp = React.lazy(() => import('./reDesignSignAndregister/signUp'));
 
 const Page404 = React.lazy(() => import('./errorPages/404'));
+const Verify = React.lazy(() => import('./verify/verify'));
+const ForgotPassword = React.lazy(() => import('./verify/forgotPassword'));
 
 function App(props){
 
@@ -23,6 +29,7 @@ function App(props){
 
     return ( 
           <div className="App">
+            <ThemeContextProvider>
             <AuthContextProvider>
               <BrowserRouter>
                 <React.Suspense fallback={loading()}>
@@ -33,12 +40,16 @@ function App(props){
                           <Route path="/" exact  name="Home" render={props => <Body {...props}/>} />
                           <Route path="/login" exact name="Login Page" render={props => <AuthenticationSignIn {...props}/>}/>
                           <Route path="/signup" exact name="Login Page" render={props => <AuthenticationSignUp {...props}/>}/>
+                          <Route path="/verify" exact name="verify" render={props => <Verify {...props}/>} />
+                          <ProtectedRoute path="/app" exact name="verify" component={Application} />
+                          <Route path="/forgotPassword" exact name="forgotPassword" render={props => <ForgotPassword {...props}/>} />
                           <Route path="/404" exact name="Page 404" render={props => <Page404 {...props}/>} />
                           <Route path='*' exact={true} component={Page404} />
                       </Switch>
                 </React.Suspense>
               </BrowserRouter>
             </AuthContextProvider>
+            </ThemeContextProvider>
           </div>
         );
 }

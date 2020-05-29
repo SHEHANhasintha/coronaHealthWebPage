@@ -43,6 +43,7 @@
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
+    "react-form-input-validation": "^2.0.3",
     "react-google-login": "^5.1.19",
     "react-native-bcrypt": "^2.4.0",
     "react-popper": "^2.2.3",

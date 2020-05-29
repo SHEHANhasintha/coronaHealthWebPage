@@ -19,7 +19,6 @@ const passwordValidation = (password) => {
 
 }
 
-
 const userNameValidation = (email) => {
 	if (validator.isEmail(email)){
 		return true;

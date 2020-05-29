@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 
 
   
-export default function SignInSide() {
+export default function SignInSide(props) {
   const classes = useStyles();
   //console.log(process.env);
   function filter(images){
@@ -101,10 +101,17 @@ export default function SignInSide() {
 
 
 
-      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");
+      //console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");
       axios
         .post("/auth/local",thita)
-        .then((res) => console.log(res))
+        .then((res) => {
+          if (res.status == 200){
+            console.log(props);
+            cb(true)
+            //window.location = "./app"
+            props.history.push("./app")
+          }
+        })
         .catch((err) => console.log(err))
       //await resolve(cb());
     }))
@@ -190,7 +197,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

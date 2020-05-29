@@ -6,12 +6,24 @@ class AuthContextProvider extends Component {
   state = { 
         isAuthenticated: false,
         email: '',
-        password: ''
+        password: '',
+        firstName: '',
+        lastName: '',
+        repeatPassword: '',
+        licenceCheckOut: false,
+        validation: false
       }
 
-  toggleAuth = async() => {
+  toggleAuth = async(value) => {
     await this.setState((state) => {
-      return {isAuthenticated: !state.isAuthenticated}
+      return {isAuthenticated: value}
+    });
+    console.log(this.state);
+  }
+
+  toggleValidation = async(value) => {
+    await this.setState((state) => {
+      return {validation: value}
     });
     console.log(this.state);
   }
@@ -29,6 +41,36 @@ class AuthContextProvider extends Component {
       return {password : passEntered}
     })
     console.log(this.state);
+  }
+
+  updateRepeatPassword = async(repeatPassEntered) => {
+    await this.setState((state) => {
+      return {repeatPassword : repeatPassEntered}
+    })
+    console.log(this.state);
+  }
+
+  updateFirstName = async(firstNameEntered) => {
+    await this.setState((state) => {
+      return {firstName : firstNameEntered}
+    });
+    console.log(this.state)
+
+  }
+
+  updateLastName = async(lastNameEntered) => {
+    await this.setState((state) => {
+      return {lastName : lastNameEntered}
+    });
+    console.log(this.state)
+
+  }
+
+  updateLicenseCheck = async() => {
+    await this.setState((state) => {
+      return {licenceCheckOut : !state.licenceCheckOut}
+    });
+    console.log(this.state)
 
   }
 
@@ -37,7 +79,12 @@ class AuthContextProvider extends Component {
       <AuthContext.Provider value={{...this.state,
         toggleAuth: this.toggleAuth,
         updateEmail: this.updateEmail, 
-        updatePassword: this.updatePassword
+        updatePassword: this.updatePassword,
+        updateFirstName: this.updateFirstName,
+        updateLastName: this.updateLastName,
+        updateRepeatPassword: this.updateRepeatPassword,
+        toggleValidation: this.toggleValidation,
+        updateLicenseCheck: this.updateLicenseCheck
       }}>
         {this.props.children}
       </AuthContext.Provider>

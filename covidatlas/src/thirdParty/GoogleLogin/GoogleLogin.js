@@ -14,21 +14,13 @@ class FacebookLogin extends Component{
 
 	responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	      //console.log(res);
-	      //console.log(context);
-	      let thita = {}
-
+	    	console.log("success");
+	     /* let thita = {}
 	      thita.email = res.Tt.Du;
-	      //thita.accessToken = res.accessToken;
-
-	      //console.log(thita,"kkkkkk");
-/*
-	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios
 	        .post("/auth/google",thita)
 	        .then((res) => console.log(res))
-	        .catch((err) => console.log(err))
-	      //await resolve(cb());
+	        .catch((err) => console.log(err))*/
 	    }))
 
 	}
@@ -48,7 +40,7 @@ class FacebookLogin extends Component{
 					    buttonText="Login"
 					    onClick = {this.clicked}
 					    onSuccess={(res) => this.responseGoogle(res,context)}
-					    onFailure={this.responseGoogle}
+					    //onFailure={this.responseGoogle}
 					    cookiePolicy={'single_host_origin'} 
 						cssClass="my-Google-button-class loginBtn--google"
 					    />

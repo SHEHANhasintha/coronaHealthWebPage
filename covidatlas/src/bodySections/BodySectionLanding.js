@@ -43,13 +43,13 @@ class BodySectionLanding extends Component{
                             <div className="col-lg-6 mr-auto">
                                 <p className="mb-5">If you are having trouble of getting your medicien. We deliver your medicien right on to the foot step of your door.</p>
                                 <div>
-                                <a  onClick={this.props.clicked}  patient={this.state.patient}  pharmisist={this.state.pharmisist} className="btn btn-primary mr-2 mb-2">I am a patient Get Started</a>
+                                <a  onClick={this.props.clicked}  patient={this.state.patient}  pharmisist={this.state.pharmisist} className="btn btn-primary mr-2 mb-2 personButtonsLanding">I am a patient</a>
                                 </div>
                             </div>
                             <div className="col-lg-6 mr-auto">
                                 <p className="mb-5">If you are having trouble of getting your medicien. We deliver your medicien right on to the foot step of your door.</p>
                                 <div>
-                                <a href="/register" className="btn btn-primary mr-2 mb-2">I am a pharmacist Get Started</a>
+                                <a href="/register" className="btn btn-primary mr-2 mb-2 personButtonsLanding">I am a pharmacist</a>
                                 </div>
                             </div>
                         </div>

@@ -12,7 +12,8 @@ var http = require('http')
 
 let responseData = {
 	login:false,
-	token:null
+	token:null,
+	message: ""
 }
 
 let statusCode = 404;
@@ -36,12 +37,48 @@ const checkLoggin = (req,res,next) => {
 			.then((value) => {
 				if (value == true){
 					token = tokenGenerator(50);
-
+					statusCode = 200
 					//transever(req.body.email,req.body.password,console.log)
+				}else{
+					statusCode = 204
 				}
 				responseData.login = value
 				responseData.token = token
-				statusCode = 200
+				
+				next();
+			})
+
+	}else{
+		statusCode = 204
+		next();
+	}
+	
+}
+
+
+const addLogin = (req,res,next) => {
+
+	//console.log(http);
+	//console.log(reqData);
+	//transever(req.body.email,req.body.password,console.log)
+	
+	let userNameValidated = userNameValidation(reqData.email)
+	let passwordValidated = passwordValidation(reqData.password)
+	//console.log(userNameValidated,passwordValidated);
+
+	if (userNameValidated && passwordValidated){
+		//transever(req.body.email,req.body.password,console.log)
+		let token;
+		retrive(reqData.email,reqData.password.trim())
+			.then((value) => {
+				if (value == false){
+					transever(reqData.email,reqData.password,'dfdf','gfgfgh','ggggg',true,console.log)
+					statusCode = 200
+					responseData.message = "success"
+				}else{
+					statusCode = 204
+				}
+				
 				next();
 			})
 
@@ -54,6 +91,18 @@ const checkLoggin = (req,res,next) => {
 
 const local = (req,res,next) => {
 	reqData = {
+		email : req.body.email.trim(),
+		password : req.body.password.trim()
+	}
+	next();
+}
+
+const localSignUp = (req,res,next) => {
+	console.log(req.body);
+	reqData = {
+		firstName : req.body.firstName.trim(),
+		lastName : req.body.lastName.trim(),
+		agreement : req.body.agreement,
 		email : req.body.email.trim(),
 		password : req.body.password.trim()
 	}
@@ -84,4 +133,4 @@ const sendres = (req,res,next) => {
 }
 
 
-module.exports = { checkLoggin, sendres, local, fbCheckup, googleCheckup };
+module.exports = { checkLoggin, addLogin, sendres, local, fbCheckup, googleCheckup, localSignUp };
