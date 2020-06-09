@@ -131,12 +131,14 @@ new webpack.DefinePlugin({
     new webpack.SourceMapDevToolPlugin({
       exclude: ['popper.js']
     }),
-
+    new CompressionPlugin({
+      test: /\.js(\?.*)?$/i,
+    }),
   ],
   optimization: {
     minimize: true,
     minimizer: [
-      new TerserPlugin({
+      new TerserJSPlugin({
       cache: true,
         parallel: 4,
         sourceMap: true,         
@@ -161,9 +163,7 @@ new webpack.DefinePlugin({
       }),
     ],
   },
-    new CompressionPlugin({
-      test: /\.js(\?.*)?$/i,
-    }),
+
 
 }
 };
