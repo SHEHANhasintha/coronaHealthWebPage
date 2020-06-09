@@ -134,6 +134,8 @@ new webpack.DefinePlugin({
     new CompressionPlugin({
       test: /\.js(\?.*)?$/i,
     }),
+
+    
   ],
   optimization: {
     minimize: true,
