@@ -54,6 +54,7 @@
     "font-awesome": "^4.7.0",
     "gijgo": "^1.9.13",
     "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^4.3.0",
     "interpolate-html-plugin": "^3.0.0",
     "jquery": "^3.5.1",
     "jquery-countdown": "^2.2.0",
@@ -110,8 +111,6 @@
   "resolution": {
     "terser": "3.17.0"
   },
-
-
   "scripts": {
     "start": "webpack-dev-server --open --mode development --env.NODE_ENV=local --env --progress ",
     "build": "webpack-dev-server --open --mode production --env.NODE_ENV=local --env --progress",
