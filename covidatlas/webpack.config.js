@@ -58,6 +58,7 @@ module.exports = env => {
     compress: true,
     port: 3000
   },
+  watch: false,
   module: {
     rules: [
       {
