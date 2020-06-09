@@ -14,6 +14,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import CloseIcon from '@material-ui/icons/Close';
+
+
 import Header from './../headerSections/HomePageHeader';
 import Footer from './../footer/Footer';
 import FaceBook from './../thirdParty/FacebookLogin/FacebookLogin';
@@ -44,6 +50,10 @@ let useStyles = makeStyles((theme) => ({
     height: '100vh',
     "& .MuiTextField-root": {
       margin: theme.spacing(1)
+    },
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
     }
   },
   image: {
@@ -100,7 +110,7 @@ export default function SignInSide(props) {
         .then(imgUrl => setbackground(imgUrl))
   },[background]);
 
-  const submitCredentials = (e,context,cb,toggleTheme) => {
+  const submitCredentials = (e,context,cb,toggleTheme,updateEmailFail) => {
     e.preventDefault();
     //callback function would be to call toggleAuth
     return(new Promise(async(resolve,reject) => {
@@ -119,12 +129,18 @@ export default function SignInSide(props) {
         axios
           .post("/auth/signin/local",thita)
           .then((res) => {
-            console.log(res.status)
+            console.log(res)
             if (res.status == 200){
+
               props.history.push('/app')
             }
           })
-          .catch((err) => console.log(err))
+          .catch((err) => {
+            console.log(err)
+            updateEmailFail(true);
+            //console.log(context);
+
+            })
         //await resolve(cb());
       }
 
@@ -204,7 +220,7 @@ export default function SignInSide(props) {
       validRegexRepeatPassword = false
     }
 
-    console.log(validRegexEmail,validRegexFirstName,validRegexLastName,validRegexPassword,validRegexRepeatPassword,validLicenceCheckOut);
+    //console.log(validRegexEmail,validRegexFirstName,validRegexLastName,validRegexPassword,validRegexRepeatPassword,validLicenceCheckOut);
 
     if (!validRegexEmail &&
      !validRegexFirstName &&
@@ -243,6 +259,20 @@ export default function SignInSide(props) {
     theme = isLightTheme ? light : dark;
   }
 
+  const messageEmialFail = (context,themeContext) => {
+
+    if (context.emailFail){
+      console.log("there we are");
+      return ("Email is already in use");
+    }
+
+    if (themeContext.email){
+      return ("Email is required")
+    }else{
+     return false;
+    }
+  }
+
 
   const themeContextToggler = (themeContextValue,themeContext) => {
 
@@ -277,6 +307,8 @@ export default function SignInSide(props) {
     }
 
   }
+
+  const [open, setOpen] = React.useState(true);
 
   return (
    <AuthContext.Consumer>
@@ -332,7 +364,7 @@ export default function SignInSide(props) {
             <Grid item xs={12}>
               <TextField
                 error={themeContext.email}
-                helperText={themeContext.email ? "Email is required" : false}
+                helperText={messageEmialFail(context,themeContext)}
                 onChange={(e) => handleChangeEmailField(e,context.updateEmail,context)}
                 variant="filled"
                 required
@@ -398,7 +430,7 @@ export default function SignInSide(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(e) => submitCredentials(e,context,context.toggleValidation,themeContext.toggleTheme)}
+            onClick={(e) => submitCredentials(e,context,context.toggleValidation,themeContext.toggleTheme,context.updateEmailFail)}
           >
             Sign Up
           </Button>

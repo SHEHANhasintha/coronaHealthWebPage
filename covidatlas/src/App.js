@@ -1,5 +1,31 @@
 import React, { Component, useState, useEffect, useContext } from 'react';
 import './App.css';
+
+//import "./cssFiles/fonts/icomoon/style.css";
+import "./cssFiles/css/bootstrap.min.css";
+//import "./cssFiles/css/jquery-ui.css";
+//import "./cssFiles/css/owl.carousel.min.css";
+import "./cssFiles/css/owl.theme.default.min.css";
+import "./cssFiles/css/owl.theme.default.min.css";
+import "./cssFiles/css/jquery.fancybox.min.css";
+import "./cssFiles/css/bootstrap-datepicker.css";
+//import "./cssFiles/fonts/flaticon/font/flaticon.css";
+import "./cssFiles/css/aos.css";
+
+import 'jquery';
+import 'bootstrap';
+import "./jsFiles/jquery-ui.js";
+import "./jsFiles/jquery.countdown.min.js";
+import "./jsFiles/bootstrap-datepicker.min.js";
+import "./jsFiles/jquery.easing.1.3.js";
+import "./jsFiles/jquery.fancybox.min.js";
+import "./jsFiles/jquery.sticky.js";
+
+import 'owl.carousel';
+import "./jsFiles/main"
+
+
+
 import HomePageHeader from './headerSections/HomePageHeader.js';
 import Body from './bodySections/Body.js';
 import Footer from './footer/Footer';

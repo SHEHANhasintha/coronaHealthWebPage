@@ -1,5 +1,7 @@
 import React, { Component } from '../../node_modules/react';
 //import logo from './logo.jpg';
+
+
 import './BodyBigFeatures.css';
 
 class BodyBigFeatures extends Component{
@@ -10,7 +12,7 @@ class BodyBigFeatures extends Component{
           <div className="container">
             <div className="row mb-5 site-section">
               <div className="col-lg-7 aos-init aos-animate" data-aos="fade-right">
-                <img src="images/undraw_gift_card_6ekc.svg" alt="person" className="img-fluid" />
+                <img src="images/unnamed.png" alt="person" className="img-fluid" />
               </div>
               <div className="col-lg-5 pl-lg-5 ml-auto mt-md-5">
                 <h2 className="text-black">Create an account on Covid Atalas</h2>
@@ -33,7 +35,7 @@ class BodyBigFeatures extends Component{
 
             <div className="mt-5 row mb-5 site-section ">
               <div className="col-lg-7 order-1 order-lg-2 aos-init" data-aos="fade-left">
-                <img src="./images/undraw_metrics_gtu7.svg" alt="person" className="img-fluid"/>
+                <img src="./images/purepng.webp" alt="person" className="img-fluid"/>
               </div>
               <div className="col-lg-5 pr-lg-5 mr-auto mt-5 order-2 order-lg-1">
                 <h2 className="text-black">Add your prescription</h2>
@@ -58,7 +60,7 @@ class BodyBigFeatures extends Component{
 
             <div className="row mb-5 site-section">
               <div className="col-lg-7 aos-init" data-aos="fade-right">
-                <img src="images/undraw_gift_card_6ekc.svg" alt="person" className="img-fluid"/>
+                <img src="images/doctors-clipart-lady-doctor-3.png" alt="person" className="img-fluid"/>
               </div>
               <div className="col-lg-5 pl-lg-5 ml-auto mt-md-5">
                 <h2 className="text-black">Medical Personal Verification</h2>
@@ -81,7 +83,7 @@ class BodyBigFeatures extends Component{
 
             <div className="mt-5 row mb-5 site-section ">
               <div className="col-lg-7 order-1 order-lg-2 aos-init" data-aos="fade-left">
-                <img src="images/undraw_metrics_gtu7.svg" alt="person" className="img-fluid"/>
+                <img src="images/unnamed1.png" alt="person" className="img-fluid"/>
               </div>
               <div className="col-lg-5 pr-lg-5 mr-auto mt-5 order-2 order-lg-1">
                 <h2 className="text-black">Post Delivary directly to your home</h2>

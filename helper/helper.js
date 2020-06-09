@@ -1,4 +1,5 @@
-
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const tokenGenerator = (length) => {
    var result           = '';
@@ -10,6 +11,22 @@ const tokenGenerator = (length) => {
    return result;
 }
 
+const encryptPass = (password) => {return(new Promise((resolve,reject) => {
+	bcrypt.genSalt(saltRounds, function(err, salt) {
+	    bcrypt.hash(password, salt, function(err, hash) {
+	    	if (err) throw err;
+	        resolve(hash)
+	    });
+	});
+})
+)
+}
 
 
-module.exports = { tokenGenerator }
+const comparePass = (hash,password) => {return(new Promise((resolve,reject) => {
+	bcrypt.compare(password, hash, function(err, result) {
+	    resolve(result)
+	});
+}))}
+
+module.exports = { tokenGenerator, encryptPass, comparePass }

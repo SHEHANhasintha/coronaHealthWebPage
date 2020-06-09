@@ -1,4 +1,8 @@
 import React, { Component,useContext,useEffect } from '../../node_modules/react';
+import './style.css'
+//import './main'
+
+
 import BodySectionLanding from './BodySectionLanding.js';
 import BodyFeatures from './BodyFeatures.js';
 import BodyBigFeatures from './BodyBigFeatures.js';

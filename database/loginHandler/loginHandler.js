@@ -27,15 +27,15 @@ let transever =  (em,pass,token,fn,ln,ag,next) => {return(new Promise(async (res
 
 let retrive =   (email,password) => {return(new Promise(async (resolve,reject) => {
 		var details = {
-			'email' : email.trim(),
-			'password' : password.trim()
+			'email' : email.trim()
 		}
+
 		await EmailModel.findOne(details,function(err,users){
 			if (err) {
 				resolve("error occured")
 			}
 			if (users != null){
-				resolve(true)
+				resolve(users)
 			} else {
 				resolve(false)
 			}

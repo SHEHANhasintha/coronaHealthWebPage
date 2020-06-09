@@ -1,5 +1,6 @@
 import React, { Component } from '../../node_modules/react';
 //import logo from './logo.jpg';
+
 import './BodySectionLanding.css';
 
 class BodySectionLanding extends Component{

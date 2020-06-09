@@ -105,8 +105,8 @@ export default function SignInSide(props) {
       axios
         .post("/auth/local",thita)
         .then((res) => {
+          console.log(res);
           if (res.status == 200){
-            console.log(props);
             cb(true)
             //window.location = "./app"
             props.history.push("./app")
@@ -192,7 +192,7 @@ export default function SignInSide(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/forgotPassword" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

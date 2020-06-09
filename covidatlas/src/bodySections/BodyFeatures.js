@@ -1,5 +1,6 @@
 import React, { Component } from '../../node_modules/react';
 //import logo from './logo.jpg';
+
 import './BodyFeatures.css';
 
 class BodyFeatures extends Component{

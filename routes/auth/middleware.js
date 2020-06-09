@@ -5,7 +5,7 @@ const path = require('path');
 var router = express.Router();
 var bodyParser = require('body-parser')
 
-var { tokenGenerator } = require('./../../helper/helper')
+const { tokenGenerator, encryptPass, comparePass } = require('./../../helper/helper')
 
 var http = require('http')
 
@@ -25,6 +25,8 @@ const checkLoggin = (req,res,next) => {
 	//console.log(http);
 	//console.log(reqData);
 	//transever(req.body.email,req.body.password,console.log)
+
+	//comparePass(hash,"Shehan")
 	
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
@@ -35,12 +37,26 @@ const checkLoggin = (req,res,next) => {
 		let token;
 		retrive(reqData.email,reqData.password.trim())
 			.then((value) => {
-				if (value == true){
-					token = tokenGenerator(50);
-					statusCode = 200
+				//console.log(value,"ttttttttttttttttttttttttttttttt")
+				if (value != false){
+
+					//console.log(value.password,reqData.password,"oooooooooooooooooo");
+					comparePass(value.password,req.body.password).then((result) => 
+							{
+								if (result){
+									token = tokenGenerator(50);
+									//console.log(value,"ttttttttttttttttttttttttttttttt")
+									statusCode = 200;
+								}else{
+									statusCode = 400
+								}
+							}
+						)
+
+
 					//transever(req.body.email,req.body.password,console.log)
 				}else{
-					statusCode = 204
+					statusCode = 400
 				}
 				responseData.login = value
 				responseData.token = token
@@ -49,7 +65,7 @@ const checkLoggin = (req,res,next) => {
 			})
 
 	}else{
-		statusCode = 204
+		statusCode = 400
 		next();
 	}
 	
@@ -58,10 +74,12 @@ const checkLoggin = (req,res,next) => {
 
 const addLogin = (req,res,next) => {
 
-	//console.log(http);
+	console.log("cxdvdfdfdfffdfdfdfdfdfdfdfdfdf");
 	//console.log(reqData);
 	//transever(req.body.email,req.body.password,console.log)
 	
+	
+
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
 	//console.log(userNameValidated,passwordValidated);
@@ -72,41 +90,52 @@ const addLogin = (req,res,next) => {
 		retrive(reqData.email,reqData.password.trim())
 			.then((value) => {
 				if (value == false){
-					transever(reqData.email,reqData.password,'dfdf','gfgfgh','ggggg',true,console.log)
+					token = tokenGenerator(50);
+					transever(reqData.email,reqData.password,token,'gfgfgh','ggggg',true,console.log)
 					statusCode = 200
 					responseData.message = "success"
 				}else{
-					statusCode = 204
+					statusCode = 400
 				}
 				
 				next();
 			})
 
 	}else{
-		statusCode = 204
+		statusCode = 400
 		next();
 	}
 	
 }
 
 const local = (req,res,next) => {
-	reqData = {
-		email : req.body.email.trim(),
-		password : req.body.password.trim()
-	}
-	next();
+
+	encryptPass(req.body.password.trim()).then((hash) => {
+		reqData = {
+			email : req.body.email.trim(),
+			password : hash.trim()
+		}
+		next();
+	})
+
+	
 }
 
 const localSignUp = (req,res,next) => {
 	console.log(req.body);
-	reqData = {
-		firstName : req.body.firstName.trim(),
-		lastName : req.body.lastName.trim(),
-		agreement : req.body.agreement,
-		email : req.body.email.trim(),
-		password : req.body.password.trim()
-	}
-	next();
+
+	encryptPass(req.body.password.trim()).then((hash) => 
+		{
+			reqData = {
+				firstName : req.body.firstName.trim(),
+				lastName : req.body.lastName.trim(),
+				agreement : req.body.agreement,
+				email : req.body.email.trim(),
+				password : hash.trim()
+			}
+			next();
+		}
+	)	
 }
 
 const fbCheckup = (req,res,next) => {

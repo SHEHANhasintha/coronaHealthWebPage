@@ -14,11 +14,11 @@ const loginSchema = new mongoose.Schema({
   password: {
   	type: String,
   	required: true,
-  	unique: true
+  	unique: false
   },
   token: {
   	type: String,
-  	required: false,
+  	required: true,
   	unique: true
   },
   firstName: {

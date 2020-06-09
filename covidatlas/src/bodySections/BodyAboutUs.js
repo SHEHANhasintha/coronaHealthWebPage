@@ -1,5 +1,6 @@
 import React, { Component } from '../../node_modules/react';
 //import logo from './logo.jpg';
+
 import './BodyAboutUs.css';
 
 class BodyAboutUs extends Component{

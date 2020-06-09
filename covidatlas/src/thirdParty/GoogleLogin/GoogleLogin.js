@@ -36,7 +36,7 @@ class FacebookLogin extends Component{
 			 	{(context) => 
 				<div>
 					<GoogleLg
-					    clientId={process.env.REACT_APP_GOOGLE_ID}
+					    clientId={"336956677618-qatmh1dqudm3b6isa9gu0ajk2aeec6la.apps.googleusercontent.com"}
 					    buttonText="Login"
 					    onClick = {this.clicked}
 					    onSuccess={(res) => this.responseGoogle(res,context)}
