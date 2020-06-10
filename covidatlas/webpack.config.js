@@ -45,6 +45,9 @@ module.exports = env => {
     filename: "bundle.js",
     publicPath: '/'
   },
+  watchOptions: {
+    ignored: /node_modules/
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
@@ -58,7 +61,6 @@ module.exports = env => {
     compress: true,
     port: 3000
   },
-  watch: false,
   module: {
     rules: [
       {

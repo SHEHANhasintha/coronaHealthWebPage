@@ -100,8 +100,8 @@
     "terser": "3.17.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode production --env.NODE_ENV=local --env  ",
-    "build": "webpack-dev-server --mode production --env.NODE_ENV=local --env ",
+    "start": "webpack-dev-server --open --mode development --env.NODE_ENV=local --env --progress ",
+    "build": "webpack-dev-server --open --mode production --env.NODE_ENV=local --env --progress",
     "test": "env-cmd -f react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
