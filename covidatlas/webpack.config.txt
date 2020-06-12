@@ -11,9 +11,13 @@ var ManifestPlugin = require('webpack-manifest-plugin');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-//const TerserJSPlugin = require('terser-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const CompressionPlugin = require('compression-webpack-plugin');
 
 
 //const env = getClientEnvironment(publicUrl);
@@ -26,7 +30,9 @@ const path = require("path");
 
 const fs = require('fs');
 
-  console.log(dotenv.parsed); // 'local'
+const BUILD_DIR = path.resolve(__dirname, './public/build');
+const APP_DIR = path.resolve(__dirname, './client');
+
  // console.log('Production: ', env.production); // true
 
 module.exports = env => {
@@ -34,13 +40,21 @@ module.exports = env => {
   //console.log('NODE_ENV: ', getClientEnvironment); // 'local'
   //console.log('Production: ', getClientEnvironment.production); // true
 
+
+
+
+
+
   return {
   entry: { main: "./src/index.js" },
   devtool: "source-map",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "public/dist"),
     filename: "bundle.js",
-    publicPath: '/'
+    publicPath: '/public'
+  },
+  watchOptions: {
+    ignored: /node_modules/
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -115,6 +129,7 @@ module.exports = env => {
       minifyCSS: true,
     }
   }),
+
 new webpack.ProvidePlugin({
   $: 'jquery',
   jQuery: 'jquery',
@@ -127,13 +142,41 @@ new webpack.DefinePlugin({
     new webpack.SourceMapDevToolPlugin({
       exclude: ['popper.js']
     }),
+    new CompressionPlugin({
+      test: /\.js(\?.*)?$/i,
+    }),
 
-new CleanWebpackPlugin(),
-  new webpack.optimize.CommonsChunkPlugin('common.js'),
-  new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.UglifyJsPlugin(),
-  new webpack.optimize.AggressiveMergingPlugin()
+    
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserJSPlugin({
+      cache: true,
+        parallel: 4,
+        sourceMap: true,         
+        terserOptions: {
+          ecma: 8,
+          warnings: false,
+          parse: {},
+          compress: { warnings: false },
+          mangle: true, // Note `mangle.properties` is `false` by default.
+          module: true,
+          output: {
+            comments: false,
+          },
+          toplevel: false,
+          nameCache: null,
+          ie8: false,
+          keep_classnames: undefined,
+          keep_fnames: false,
+          safari10: false,
+        },
+        extractComments: false,
+      }),
+    ],
+  },
+
 
 }
 };
