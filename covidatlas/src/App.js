@@ -1,35 +1,35 @@
 
 import React, { Component, useState, useEffect, useContext } from 'react';
-//import './App.css';
+import './App.css';
 
 //import "./cssFiles/fonts/icomoon/style.css";
-/*//import "./cssFiles/css/jquery-ui.css";
+//import "./cssFiles/css/jquery-ui.css";
 //import "./cssFiles/css/owl.carousel.min.css";
-import "./cssFiles/css/owl.theme.default.min.css";
+/*import "./cssFiles/css/owl.theme.default.min.css";
 import "./cssFiles/css/owl.theme.default.min.css";
 import "./cssFiles/css/jquery.fancybox.min.css";
 import "./cssFiles/css/bootstrap-datepicker.css";
 //import "./cssFiles/fonts/flaticon/font/flaticon.css";
 import "./cssFiles/css/aos.css";
-*/
 
-//import $ from 'jquery';
+
+import 'jquery';
 //import { jQuery, } from 'jquery';
 //global.jQuery = $;
-//import 'bootstrap';
+import 'bootstrap';
 //import jQuery from "./jsFiles/jquery-3.3.1.min.js";
-//import "./jsFiles/jquery-ui.js";
+import "./jsFiles/jquery-ui.js";
 //import "./jsFiles/popper.min.js";
-//import "./jsFiles/bootstrap.min.js";
-//import "./jsFiles/owl.carousel.min.js";
-//import "./jsFiles/jquery.countdown.min.js";
-//import "./jsFiles/bootstrap-datepicker.min.js";
-//import "./jsFiles/jquery.easing.1.3.js";
-//import "./jsFiles/aos.js";
-//import "./jsFiles/jquery.fancybox.min.js";
-//import "./jsFiles/jquery.sticky.js";
+import "./jsFiles/bootstrap.min.js";
+import "./jsFiles/owl.carousel.min.js";
+import "./jsFiles/jquery.countdown.min.js";
+import "./jsFiles/bootstrap-datepicker.min.js";
+import "./jsFiles/jquery.easing.1.3.js";
+import "./jsFiles/aos.js";
+import "./jsFiles/jquery.fancybox.min.js";
+import "./jsFiles/jquery.sticky.js";
 
-//import "./jsFiles/main.js";
+import "./jsFiles/main.js";*/
 
 
 import HomePageHeader from './headerSections/HomePageHeader.js';

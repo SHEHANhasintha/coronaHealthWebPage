@@ -49,7 +49,7 @@ module.exports = env => {
   entry: { main: "./src/index.js" },
   devtool: "source-map",
   output: {
-    path: path.resolve(__dirname, "public/dist"),
+    path: path.resolve(__dirname, "/dist"),
     filename: "bundle.js",
     publicPath: '/public'
   },
@@ -74,7 +74,12 @@ module.exports = env => {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/react']
+          }
+        }
       },
       {
         test: /\.?worker\.js$/,
