@@ -2,6 +2,8 @@ import React, { Component } from '../../node_modules/react';
 //import logo from './logo.jpg';
 
 import './BodySectionLanding.css';
+import img1 from './images/phramcy2.png'
+
 
 class BodySectionLanding extends Component{
     constructor(props){
@@ -36,7 +38,7 @@ class BodySectionLanding extends Component{
             <div className="container">
                 <div className="row align-items-center justify-content-center">
                 <div className="col-md-12 aos-init aos-animate" style={{position:"relative"}} data-aos="fade-up" data-aos-delay="200">
-                    <img src="images/phramcy2.png" alt="phramcy" className="img-fluid img-absolute"/>
+                    <img src={img1} alt="phramcy" className="img-fluid img-absolute"/>
                     <div className="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
                     <div className="col-lg-6 mr-auto">
                         <h1>LET US CARE ABOUT YOUR MEDICIEN</h1>
