@@ -40,6 +40,7 @@
     "classnames": "^2.2.6",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^6.0.2",
     "core-js": "^3.6.5",
     "css-loader": "^3.5.3",
     "datepicker-bootstrap": "^1.9.13",

@@ -19,6 +19,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const CompressionPlugin = require('compression-webpack-plugin');
 
+const CopyPlugin = require('copy-webpack-plugin');
+
+
 
 //const env = getClientEnvironment(publicUrl);
 
@@ -134,7 +137,11 @@ module.exports = env => {
       minifyCSS: true,
     }
   }),
-
+new CopyPlugin({
+      patterns: [
+        { from:  path.join(__dirname, 'public'), to:  path.join(__dirname, 'build') }
+      ],
+    }),
 new webpack.ProvidePlugin({
   $: 'jquery',
   jQuery: 'jquery',
