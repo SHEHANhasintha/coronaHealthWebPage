@@ -49,15 +49,15 @@ module.exports = env => {
   entry: { main: "./src/index.js" },
   devtool: "source-map",
   output: {
-    path: path.resolve(__dirname, "/dist"),
+    path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
-    publicPath: '/public'
+    publicPath: '/'
   },
   watchOptions: {
     ignored: /node_modules/
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'build'),
     historyApiFallback: true,
     proxy: {
         '/auth': {
