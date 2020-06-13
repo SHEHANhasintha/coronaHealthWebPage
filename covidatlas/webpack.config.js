@@ -30,6 +30,9 @@ const path = require("path");
 
 const fs = require('fs');
 
+const BUILD_DIR = path.resolve(__dirname, './public/build');
+const APP_DIR = path.resolve(__dirname, './client');
+
  // console.log('Production: ', env.production); // true
 
 module.exports = env => {
@@ -37,11 +40,13 @@ module.exports = env => {
   //console.log('NODE_ENV: ', getClientEnvironment); // 'local'
   //console.log('Production: ', getClientEnvironment.production); // true
 
+
+
   return {
   entry: { main: "./src/index.js" },
   devtool: "source-map",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
     publicPath: '/'
   },
@@ -49,7 +54,7 @@ module.exports = env => {
     ignored: /node_modules/
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'build'),
     historyApiFallback: true,
     proxy: {
         '/auth': {
@@ -66,7 +71,12 @@ module.exports = env => {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/react']
+          }
+        }
       },
       {
         test: /\.?worker\.js$/,
@@ -168,7 +178,5 @@ new webpack.DefinePlugin({
       }),
     ],
   },
-
-
 }
 };
