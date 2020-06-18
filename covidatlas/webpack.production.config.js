@@ -157,7 +157,7 @@ module.exports = env => {
   new CompressionPlugin({
     test: /\.js(\?.*)?$/i,
   }),
-  new FaviconsWebpackPlugin( path.join(__dirname, 'public/images/logo.png')) 
+  //new FaviconsWebpackPlugin( path.join(__dirname, 'public/images/logo.png')) 
     
   ],
   optimization: {
