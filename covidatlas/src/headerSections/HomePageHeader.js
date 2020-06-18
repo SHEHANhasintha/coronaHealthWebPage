@@ -1,8 +1,4 @@
 import React, { Component } from '../../node_modules/react';
-//import 'jquery';
-//import 'bootstrap';
-//import './style.css';
-//import './main'
 import logo from './../images/logo.png';
 import './HomePageHeader.css';
 

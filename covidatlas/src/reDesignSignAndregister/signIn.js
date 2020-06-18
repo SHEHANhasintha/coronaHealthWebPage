@@ -99,17 +99,25 @@ export default function SignInSide(props) {
       thita.email = context.email;
       thita.password = context.password;
 
-
-
-      //console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");
       axios
         .post("/auth/local",thita)
         .then((res) => {
           console.log(res);
           if (res.status == 200){
-            cb(true)
-            //window.location = "./app"
+            localStorage.setItem('email', res.data.login.email);
+            localStorage.setItem('firstName', res.data.login.firstName);
+            localStorage.setItem('lastName', res.data.login.lastName);
+            localStorage.setItem('token', res.data.tokenData.token);
+            localStorage.setItem('iat', res.data.tokenData.iat);
+            localStorage.setItem('exp', res.data.tokenData.exp);
+            localStorage.setItem('isAuthenticated', true);
+
+
+      //console.log(this.state,"here");
+      //props.history.push("./app")
+      
             props.history.push("./app")
+
           }
         })
         .catch((err) => console.log(err))

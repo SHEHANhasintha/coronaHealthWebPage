@@ -124,13 +124,20 @@ export default function SignInSide(props) {
 
       checkValidation(context,cb,toggleTheme)
 
-        //console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");
        if (context.validation){ 
         axios
           .post("/auth/signin/local",thita)
           .then((res) => {
             console.log(res)
             if (res.status == 200){
+              //toggleAuth(true)
+              localStorage.setItem('email', res.data.login.email);
+              localStorage.setItem('firstName', res.data.login.firstName);
+              localStorage.setItem('lastName', res.data.login.lastName);
+              localStorage.setItem('token', res.data.tokenData.token);
+              localStorage.setItem('iat', res.data.tokenData.iat);
+              localStorage.setItem('exp', res.data.tokenData.exp);
+              localStorage.setItem('isAuthenticated', true);
 
               props.history.push('/app')
             }
@@ -138,10 +145,7 @@ export default function SignInSide(props) {
           .catch((err) => {
             console.log(err)
             updateEmailFail(true);
-            //console.log(context);
-
             })
-        //await resolve(cb());
       }
 
 
@@ -317,6 +321,7 @@ export default function SignInSide(props) {
       {(themeContext) => 
     <Grid container component="main" className={classes.root}>
     {themeContextTogglerStart(themeContext)}
+
       <Header/>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} style={{'backgroundImage':`url(${background})`}} className={classes.image} />

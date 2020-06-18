@@ -26,9 +26,12 @@
     "express-validator": "^6.5.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "jws": "^4.0.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.15",
     "morgan": "~1.9.1",
+    "node-rsa": "^1.0.8",
     "nodemon": "^2.0.3",
     "password-validator": "^5.0.3",
     "validator": "^13.0.0"

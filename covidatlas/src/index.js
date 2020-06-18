@@ -7,7 +7,6 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-  	{console.log("dfdfdfdf")}
     <App />
     <PublicFiles />
   </React.StrictMode>,

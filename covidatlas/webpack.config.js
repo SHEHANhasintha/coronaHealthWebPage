@@ -137,57 +137,21 @@ module.exports = env => {
       minifyCSS: true,
     }
   }),
-new CopyPlugin({
-      patterns: [
-        { from:  path.join(__dirname, 'public'), to:  path.join(__dirname, 'build') }
-      ],
-    }),
-new webpack.ProvidePlugin({
-  $: 'jquery',
-  jQuery: 'jquery',
-  'window.$': 'jquery',
-  'window.jQuery': 'jquery'
-}),
-new webpack.DefinePlugin({
-            "process.env": dotenv.parsed
-        }),
-    new webpack.SourceMapDevToolPlugin({
-      exclude: ['popper.js']
-    }),
-    new CompressionPlugin({
-      test: /\.js(\?.*)?$/i,
-    }),
-
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.$': 'jquery',
+    'window.jQuery': 'jquery'
+  }),
+  new webpack.DefinePlugin({
+              "process.env": dotenv.parsed
+          }),
+  new webpack.SourceMapDevToolPlugin({
+    exclude: ['popper.js']
+  }),
+  new FaviconsWebpackPlugin( path.join(__dirname, 'public/images/logo.ico')) 
     
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserJSPlugin({
-      cache: true,
-        parallel: 4,
-        sourceMap: true,         
-        terserOptions: {
-          ecma: 8,
-          warnings: false,
-          parse: {},
-          compress: { warnings: false },
-          mangle: true, // Note `mangle.properties` is `false` by default.
-          module: true,
-          output: {
-            comments: false,
-          },
-          toplevel: false,
-          nameCache: null,
-          ie8: false,
-          keep_classnames: undefined,
-          keep_fnames: false,
-          safari10: false,
-        },
-        extractComments: false,
-      }),
-    ],
-  },
+  ]
 
 
 }

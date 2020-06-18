@@ -12,7 +12,7 @@ require('dotenv').config({ path: './.env.development' });
 const port = process.env.PORT || 5000;
 const indexRouter = require('./routes/index');
 const authenticationHandlerLocal = require('./routes/auth/authLocal');
-
+const authenticationHandlerApp= require('./routes/app/applicationRoutes');
 //console.log(process.env.DBSERVER)
 
 var app = express();
@@ -32,7 +32,9 @@ app.use(cookieParser());
 mongodb._connect();
 
 app.use('/', indexRouter);
+app.use('/app', authenticationHandlerApp);
 app.use('/auth', authenticationHandlerLocal);
+
 
 app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "./covidatlas/build", "index.html"));

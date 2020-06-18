@@ -19,6 +19,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const CompressionPlugin = require('compression-webpack-plugin');
 
+const CopyPlugin = require('copy-webpack-plugin');
+
+
 
 //const env = getClientEnvironment(publicUrl);
 
@@ -30,6 +33,9 @@ const path = require("path");
 
 const fs = require('fs');
 
+const BUILD_DIR = path.resolve(__dirname, './public/build');
+const APP_DIR = path.resolve(__dirname, './client');
+
  // console.log('Production: ', env.production); // true
 
 module.exports = env => {
@@ -37,11 +43,16 @@ module.exports = env => {
   //console.log('NODE_ENV: ', getClientEnvironment); // 'local'
   //console.log('Production: ', getClientEnvironment.production); // true
 
+
+
+
+
+
   return {
   entry: { main: "./src/index.js" },
   devtool: "source-map",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
     publicPath: '/'
   },
@@ -49,7 +60,7 @@ module.exports = env => {
     ignored: /node_modules/
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'build'),
     historyApiFallback: true,
     proxy: {
         '/auth': {
@@ -66,7 +77,12 @@ module.exports = env => {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/react']
+          }
+        }
       },
       {
         test: /\.?worker\.js$/,
@@ -121,23 +137,27 @@ module.exports = env => {
       minifyCSS: true,
     }
   }),
-
-new webpack.ProvidePlugin({
-  $: 'jquery',
-  jQuery: 'jquery',
-  'window.$': 'jquery',
-  'window.jQuery': 'jquery'
-}),
-new webpack.DefinePlugin({
-            "process.env": dotenv.parsed
-        }),
-    new webpack.SourceMapDevToolPlugin({
-      exclude: ['popper.js']
-    }),
-    new CompressionPlugin({
-      test: /\.js(\?.*)?$/i,
-    }),
-
+  new CopyPlugin({
+        patterns: [
+          { from:  path.join(__dirname, 'public'), to:  path.join(__dirname, 'build') }
+        ],
+      }),
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.$': 'jquery',
+    'window.jQuery': 'jquery'
+  }),
+  new webpack.DefinePlugin({
+              "process.env": dotenv.parsed
+          }),
+  new webpack.SourceMapDevToolPlugin({
+    exclude: ['popper.js']
+  }),
+  new CompressionPlugin({
+    test: /\.js(\?.*)?$/i,
+  }),
+  new FaviconsWebpackPlugin( path.join(__dirname, 'public/images/logo.png')) 
     
   ],
   optimization: {

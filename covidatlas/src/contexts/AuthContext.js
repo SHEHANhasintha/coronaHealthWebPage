@@ -19,7 +19,6 @@ class AuthContextProvider extends Component {
     await this.setState((state) => {
       return {isAuthenticated: value}
     });
-    //console.log(this.state);
   }
 
   toggleValidation = async(value) => {

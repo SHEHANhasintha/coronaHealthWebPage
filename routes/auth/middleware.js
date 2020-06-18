@@ -1,18 +1,18 @@
-const { transever,retrive } = require('./../../database/loginHandler/loginHandler')
+const { transever, retrive, updateData, deleteData } = require('./../../database/loginHandler/loginHandler')
 const  { userNameValidation, passwordValidation } = require('./../../validationCheck/validationCheck');
 var express = require('express');
 const path = require('path');
 var router = express.Router();
 var bodyParser = require('body-parser')
 
-const { tokenGenerator, encryptPass, comparePass } = require('./../../helper/helper')
+const { tokenGenerator, encryptPass, comparePass, tokenSigningJWT, tokenValidatingJWT } = require('./../../helper/helper')
 
 var http = require('http')
 
 
 let responseData = {
 	login:false,
-	token:null,
+	tokenData:"",
 	message: ""
 }
 
@@ -20,52 +20,83 @@ let statusCode = 404;
 
 let reqData = {};
 
+
+const updateUserToken = () => {
+	return(new Promise((resolve,reject) => {
+		tokenSigningJWT(reqData.email,reqData.password)
+			.then((token) => {
+				resolve(token)
+			})
+			.catch((err) => {
+				reject(err)
+			})
+	}))
+}
+
+const deleteUserToken = (email,pass,token) => {
+	return(new Promise((resolve,rejact) => {
+			
+	}))
+}
+
+
+
 const checkLoggin = (req,res,next) => {
-
-	//console.log(http);
-	//console.log(reqData);
-	//transever(req.body.email,req.body.password,console.log)
-
-	//comparePass(hash,"Shehan")
-	
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
-	//console.log(userNameValidated,passwordValidated);
 
 	if (userNameValidated && passwordValidated){
 		//transever(req.body.email,req.body.password,console.log)
 		let token;
-		retrive(reqData.email,reqData.password.trim())
+		retrive(reqData.email)
 			.then((value) => {
-				//console.log(value,"ttttttttttttttttttttttttttttttt")
 				if (value != false){
-
-					//console.log(value.password,reqData.password,"oooooooooooooooooo");
 					comparePass(value.password,req.body.password).then((result) => 
 							{
-								if (result){
-									token = tokenGenerator(50);
-									//console.log(value,"ttttttttttttttttttttttttttttttt")
-									statusCode = 200;
-								}else{
-									statusCode = 400
-								}
+							if (result){
+								updateUserToken().then((token) => {
+									updateData(reqData.email,null,token,null,null,null,console.log)
+										.then((result) => {
+											responseData.tokenData = token;
+											releasePacket = {
+												email : value.email,
+												login : true,
+												firstName : value.firstName,
+												lastName : value.lastName,
+												agreement : value.agreement
+											}											
+											console.log(releasePacket);
+											responseData.login = releasePacket
+											statusCode = 200
+											responseData.message = "success"	
+										})
+										.catch((err) => {
+											statusCode = 403
+											responseData.message = "failed"
+										})
+								})
+								.catch((err) => {
+									statusCode = 403
+									responseData.message = "failed"
+								})
+
+							}else{
+								statusCode = 403
+							}
 							}
 						)
-
-
 					//transever(req.body.email,req.body.password,console.log)
 				}else{
-					statusCode = 400
+					statusCode = 403
 				}
-				responseData.login = value
-				responseData.token = token
+				//responseData.login = value
+				//responseData.token = token
 				
 				next();
 			})
 
 	}else{
-		statusCode = 400
+		statusCode = 403
 		next();
 	}
 	
@@ -73,13 +104,9 @@ const checkLoggin = (req,res,next) => {
 
 
 const addLogin = (req,res,next) => {
-
-	console.log("cxdvdfdfdfffdfdfdfdfdfdfdfdfdf");
 	//console.log(reqData);
 	//transever(req.body.email,req.body.password,console.log)
 	
-	
-
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
 	//console.log(userNameValidated,passwordValidated);
@@ -87,22 +114,37 @@ const addLogin = (req,res,next) => {
 	if (userNameValidated && passwordValidated){
 		//transever(req.body.email,req.body.password,console.log)
 		let token;
-		retrive(reqData.email,reqData.password.trim())
+		retrive(reqData.email)
 			.then((value) => {
 				if (value == false){
-					token = tokenGenerator(50);
-					transever(reqData.email,reqData.password,token,'gfgfgh','ggggg',true,console.log)
-					statusCode = 200
-					responseData.message = "success"
+					tokenSigningJWT(reqData.email,reqData.password)
+						.then((token) => {
+							responseData.tokenData = token;
+							let releasePacket = {
+								email : reqData.email,
+								login : true,
+								firstName : reqData.firstName,
+								lastName : reqData.lastName,
+								agreement : false
+							}											
+							responseData.login = releasePacket
+							transever(reqData.email,reqData.password,token,'gfgfgh','ggggg',true,console.log)
+							statusCode = 200
+							responseData.message = "success"
+							next();
+						})
+						.catch((err) => {statusCode = 403;next();})
+
+					
 				}else{
-					statusCode = 400
+					statusCode = 403
 				}
 				
 				next();
 			})
 
 	}else{
-		statusCode = 400
+		statusCode = 403
 		next();
 	}
 	
@@ -113,8 +155,10 @@ const local = (req,res,next) => {
 	encryptPass(req.body.password.trim()).then((hash) => {
 		reqData = {
 			email : req.body.email.trim(),
-			password : hash.trim()
+			password : hash.trim(),
+			token: req.body.token === undefined ? false : req.body.token.trim()
 		}
+		console.log(reqData)
 		next();
 	})
 

@@ -39,6 +39,7 @@
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
     "clean-webpack-plugin": "^3.0.0",
+    "clsx": "^1.1.1",
     "compression-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^6.0.2",
     "core-js": "^3.6.5",
@@ -59,6 +60,7 @@
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
     "interpolate-html-plugin": "^3.0.0",
+    "jose-jwe-jws": "^0.2.2",
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.25.1",
@@ -107,7 +109,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --open --mode development --env.NODE_ENV=local --env --progress ",
-    "postinstall": "webpack -p",
+    "postinstall": "webpack --config webpack.production.config.js",
     "start": "nodemon server.js",
     "test": "env-cmd -f react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

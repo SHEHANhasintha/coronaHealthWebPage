@@ -14,7 +14,7 @@ let transever =  (em,pass,token,fn,ln,ag,next) => {return(new Promise(async (res
 		})
 		await msg.save()
 		   .then(doc => {
-		   	 next(`success fully stored \n${doc}`)
+		   	 next(`successfully stored \n${doc}`)
 		     resolve(true)
 		   })
 		   .catch(err => {
@@ -25,7 +25,7 @@ let transever =  (em,pass,token,fn,ln,ag,next) => {return(new Promise(async (res
 
 )}
 
-let retrive =   (email,password) => {return(new Promise(async (resolve,reject) => {
+let retrive =   (email) => {return(new Promise(async (resolve,reject) => {
 		var details = {
 			'email' : email.trim()
 		}
@@ -46,9 +46,62 @@ let retrive =   (email,password) => {return(new Promise(async (resolve,reject) =
 ))}
 
 
+let updateData =   (em,pass,token,firstName,lastName,agreement) => {return(new Promise(async (resolve,reject) => {
+		let details = {
+			'email' : em.trim()
+		}
+
+		let updateDetails = {
+			password : pass,
+			token : token,
+			firstName : firstName,
+			lastName : lastName,
+			agreement : agreement
+		}
+
+		let entries = Object.keys(updateDetails)
+		entries.forEach((data) => {
+			if(updateDetails[data] == null){
+				delete updateDetails[data];
+			}else{
+				if (typeof(updateDetails[data]) === "string"){
+					updateDetails[data] = updateDetails[data].trim();
+				}
+			}
+		})
+
+		await EmailModel.updateOne(details, updateDetails, function(err,result) {
+		    if (err) {
+		      console.log(err);
+		      reject(err);
+		    } else {
+		      resolve(result);
+		    }
+		  })
+	}
+
+))}
+
+let deleteData =   (email,password) => {return(new Promise(async (resolve,reject) => {
+		var details = {
+			'email' : email.trim()
+		}
+
+		await EmailModel.deleteMany(details, function (err) {
+			  if(err) 
+			  	reject(err);
+			  else{
+			  	console.log("Successful deletion");
+			  	resolve(true)
+			  }
+			})
+	}
+
+))}
 
 
 
-module.exports = {transever,retrive};
+
+module.exports = { transever, retrive, updateData, deleteData };
 
 

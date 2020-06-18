@@ -17,7 +17,7 @@ const loginSchema = new mongoose.Schema({
   	unique: false
   },
   token: {
-  	type: String,
+  	type: Object,
   	required: true,
   	unique: true
   },
