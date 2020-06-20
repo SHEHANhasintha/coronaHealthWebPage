@@ -21,7 +21,7 @@ class FacebookLogin extends Component{
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-	      //console.log(thita,"kkkkkk");
+	      console.log(process.env.REACT_APP_FACEBOOK_ID);
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios

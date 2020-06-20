@@ -27,7 +27,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 //const env = getClientEnvironment(publicUrl);
 
-var dotenv = require('dotenv').config({path: __dirname + '/.env'});
+var dotenv = require('dotenv').config({path: __dirname + '/.env.development'});
 
 const path = require("path");
 
@@ -149,7 +149,8 @@ module.exports = env => {
   new webpack.SourceMapDevToolPlugin({
     exclude: ['popper.js']
   }),
-  new FaviconsWebpackPlugin( path.join(__dirname, 'public/images/logo.ico')) 
+  new FaviconsWebpackPlugin( path.join(__dirname, 'public/images/logo.ico')),
+
     
   ]
 

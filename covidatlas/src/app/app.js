@@ -18,8 +18,10 @@ function Application(props){
       thita.email = localStorage.getItem('email');
       thita.token = localStorage.getItem('token');
 
+      console.log(process.env.REACT_APP_APPLICATION_PROXY, " dsdsdsdsddsds");
+
         axios
-          .post("/app/local/tokenrenew",thita)
+          .post(`${process.env.REACT_APP_APPLICATION_PROXY}/app/local/tokenrenew`,thita)
           .then((res) => {
             console.log(res)
             if (res.status == 200){
