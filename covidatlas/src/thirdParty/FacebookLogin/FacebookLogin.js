@@ -6,6 +6,9 @@ import axios from 'axios';
 
 import { AuthContext } from './../../contexts/AuthContext';
 
+let fbId = process.env.REACT_APP_FACEBOOK_ID;
+
+
 class FacebookLogin extends Component{
 	constructor(props){
 		super(props);
@@ -38,7 +41,7 @@ class FacebookLogin extends Component{
 				  {(context) => 
 					<div>
 						<FacebookLg 
-						appId={process.env.REACT_APP_FACEBOOK_ID}
+						appId={fbId}
 						autoLoad={false}
 						fields="name,email,picture"
 						onClick={this.componentClicked}

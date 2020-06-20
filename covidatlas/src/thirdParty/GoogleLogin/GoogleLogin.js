@@ -15,12 +15,12 @@ class FacebookLogin extends Component{
 	responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
 	    	console.log("success");
-	     /* let thita = {}
+	      let thita = {}
 	      thita.email = res.Tt.Du;
 	      axios
 	        .post("/auth/google",thita)
 	        .then((res) => console.log(res))
-	        .catch((err) => console.log(err))*/
+	        .catch((err) => console.log(err))
 	    }))
 
 	}
