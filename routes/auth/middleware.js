@@ -42,15 +42,19 @@ const deleteUserToken = (email,pass,token) => {
 
 
 const checkLoggin = (req,res,next) => {
+
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
 
 	if (userNameValidated && passwordValidated){
+
 		//transever(req.body.email,req.body.password,console.log)
 		let token;
 		retrive(reqData.email)
 			.then((value) => {
 				if (value != false){
+							console.log(value.password,req.body.password);
+
 					comparePass(value.password,req.body.password).then((result) => 
 							{
 							if (result){
@@ -104,7 +108,7 @@ const checkLoggin = (req,res,next) => {
 
 
 const addLogin = (req,res,next) => {
-	//console.log(reqData);
+	console.log("here");
 	//transever(req.body.email,req.body.password,console.log)
 	
 	let userNameValidated = userNameValidation(reqData.email)
@@ -183,7 +187,7 @@ const localSignUp = (req,res,next) => {
 }
 
 const fbCheckup = (req,res,next) => {
-	//console.log(req);
+	console.log(req.body.email.trim());
 	reqData = {
 		email : req.body.email.trim(),
 		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
@@ -192,7 +196,7 @@ const fbCheckup = (req,res,next) => {
 }
 
 const googleCheckup = (req,res,next) => {
-	//console.log(req,"tttttttttttttttttttttttttttt");
+	console.log(req.body.email.trim());
 	reqData = {
 		email : req.body.email.trim(),
 		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"

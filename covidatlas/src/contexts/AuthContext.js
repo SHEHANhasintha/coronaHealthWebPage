@@ -12,7 +12,8 @@ class AuthContextProvider extends Component {
         repeatPassword: '',
         licenceCheckOut: false,
         validation: false,
-        emialFail:false
+        emialFail:false,
+        loc: ''
       }
 
   toggleAuth = async(value) => {
@@ -82,6 +83,14 @@ class AuthContextProvider extends Component {
 
   }
 
+  locationWindow = async(location) => {
+    await this.setState((state) => {
+      return {loc : location}
+    });
+    //console.log(this.state)
+
+  }
+
   render() { 
     return (
       <AuthContext.Provider value={{...this.state,
@@ -93,7 +102,8 @@ class AuthContextProvider extends Component {
         updateRepeatPassword: this.updateRepeatPassword,
         toggleValidation: this.toggleValidation,
         updateLicenseCheck: this.updateLicenseCheck,
-        updateEmailFail: this.updateEmailFail
+        updateEmailFail: this.updateEmailFail,
+        locationWindow: this.locationWindow
       }}>
         {this.props.children}
       </AuthContext.Provider>

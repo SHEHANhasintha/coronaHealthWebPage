@@ -28,7 +28,7 @@ class FacebookLogin extends Component{
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios
-	        .post("http://localhost:5000/auth/facebook",thita)
+	        .post(`http://localhost:5000/auth${context.loc}/facebook`,thita)
 	        .then((res) => console.log(res))
 	        .catch((err) => console.log(err))
 	      //await resolve(cb());

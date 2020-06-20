@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,6 +20,7 @@ import GoogleLogin from './../thirdParty/GoogleLogin/GoogleLogin';
 
 
 import { AuthContext } from './../contexts/AuthContext';
+import { ThemeContext } from './../contexts/ThemeContext';
 
 import axios from 'axios';
 
@@ -83,24 +84,29 @@ export default function SignInSide(props) {
     }))
   }
 
+
+  const contextValue = useContext(AuthContext);
+
+
   useEffect(() => {
       axios.get(url)
         .then(res => res.data)
         .then(dataArr => filter(dataArr))
         .then(imgUrl => setbackground(imgUrl))
+      contextValue.locationWindow('/signin')
   },[background]);
 
   const submitCredentials = (e,context,cb) => {
     e.preventDefault();
     //callback function would be to call toggleAuth
     return(new Promise(async(resolve,reject) => {
-      //console.log(context);
+      console.log(context);
       let thita = {}
       thita.email = context.email;
       thita.password = context.password;
 
       axios
-        .post("/auth/local",thita)
+        .post(`/auth${context.loc}/local`,thita)
         .then((res) => {
           console.log(res);
           if (res.status == 200){
@@ -139,15 +145,48 @@ export default function SignInSide(props) {
     return(new Promise(async(resolve,reject) => {
       await resolve(cb(e.target.value.trim()))
     }))
-  } 
+  }
+
+  let theme;
+  let isLightTheme, light, dark;
+
+  const themeContextTogglerStart = (themeContext) => {
+
+    isLightTheme= themeContext.isLightTheme;
+    light= themeContext.light;
+    dark= themeContext.dark;
+    theme = isLightTheme ? light : dark;
+  }  
+
+  const themeContextToggler = (themeContextValue,themeContext) => {
+
+    switch (themeContextValue){
+      case 'password':
+        if (themeContext.password) return dark.ui;
+        else return light.ui;
+
+      case 'email':
+        if (themeContext.email) return dark.ui;
+        else return light.ui;
+
+      default:
+        return light.ui;
+    }
+
+  }
 
   var url = 'https://api.unsplash.com/search/photos?page=1&per_page=30&query=pills&client_id=eA8h1lVdYjJhbv2pSPaB5PDStYH-7dkJRBOz5YWV1dI'
   var [background,setbackground] = useState('https://api.unsplash.com/photos/random?client_id=eA8h1lVdYjJhbv2pSPaB5PDStYH-7dkJRBOz5YWV1dI');
 
   return (
  <AuthContext.Consumer>
-  {(context) => 
+  {(context) =>
+      <ThemeContext.Consumer>
+        {(themeContext) => 
      <Grid container component="main" className={classes.root}>
+     {themeContextTogglerStart(themeContext)}
+
+
      <Header/>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} style={{'backgroundImage':`url(${background})`}} className={classes.image} />
@@ -220,7 +259,8 @@ export default function SignInSide(props) {
         <Footer/>
       </Grid>
     </Grid>
-
+  }
+</ThemeContext.Consumer> 
 }  
 </AuthContext.Consumer>
   );

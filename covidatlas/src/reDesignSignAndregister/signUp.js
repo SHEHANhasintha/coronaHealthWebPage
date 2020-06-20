@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -114,7 +114,7 @@ export default function SignInSide(props) {
     e.preventDefault();
     //callback function would be to call toggleAuth
     return(new Promise(async(resolve,reject) => {
-      //console.log(context);
+      
       let thita = {}
       thita.firstName = context.firstName;
       thita.lastName = context.lastName;
@@ -126,7 +126,7 @@ export default function SignInSide(props) {
 
        if (context.validation){ 
         axios
-          .post("/auth/signin/local",thita)
+          .post(`/auth${context.loc}/local`,thita)
           .then((res) => {
             console.log(res)
             if (res.status == 200){
@@ -312,7 +312,21 @@ export default function SignInSide(props) {
 
   }
 
+
+  const addContextWindowLocation = (locationWindow) => {
+    return locationWindow('/signup');
+  }
+
+  const contextValue = useContext(AuthContext);
+
+
+  useEffect(function() {
+    contextValue.locationWindow('/signup')
+  }, []);
+
   const [open, setOpen] = React.useState(true);
+  //const [st,bt] = React.useContext(context)
+  //console.log(open)
 
   return (
    <AuthContext.Consumer>
@@ -321,6 +335,7 @@ export default function SignInSide(props) {
       {(themeContext) => 
     <Grid container component="main" className={classes.root}>
     {themeContextTogglerStart(themeContext)}
+
 
       <Header/>
       <CssBaseline />

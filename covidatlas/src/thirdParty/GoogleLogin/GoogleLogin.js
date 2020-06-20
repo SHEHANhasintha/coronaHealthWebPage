@@ -18,7 +18,7 @@ class FacebookLogin extends Component{
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 	      axios
-	        .post("http://localhost:5000/auth/google",thita)
+	        .post(`http://localhost:5000/auth${context.loc}/google`,thita)
 	        .then((res) => console.log(res))
 	        .catch((err) => console.log(err))
 	    }))

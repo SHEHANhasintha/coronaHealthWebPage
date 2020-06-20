@@ -12,20 +12,20 @@ router.use(bodyParser.raw());
 
 const { checkLoggin, addLogin, sendres, local, fbCheckup, googleCheckup, localSignUp } = require('./middleware');
 
-//Login
-router.post('/local' , local, checkLoggin, sendres, (req, res) => {});
+//Signup
+router.post('/signup/local' , localSignUp, addLogin, sendres, (req, res) => {});
 
-router.post('/facebook',fbCheckup , checkLoggin, sendres, (req, res) => {});
+router.post('/signup/facebook',fbCheckup , addLogin, sendres, (req, res) => {});
 
-router.post('/google',googleCheckup , checkLoggin, sendres, (req, res) => {});
+router.post('/signup/google',googleCheckup , addLogin, sendres, (req, res) => {});
+
 
 //signIn
-router.post('/signin/local' , localSignUp, addLogin, sendres, (req, res) => {});
+router.post('/signin/local' , local, checkLoggin, sendres, (req, res) => {});
 
 router.post('/signin/facebook',fbCheckup , checkLoggin, sendres, (req, res) => {});
 
 router.post('/signin/google',googleCheckup , checkLoggin, sendres, (req, res) => {});
-
 
 
 module.exports = router;
