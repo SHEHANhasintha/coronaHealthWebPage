@@ -14,13 +14,13 @@ class FacebookLogin extends Component{
 
 	responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	    	console.log("success");
+	    	console.log(res);
 	      let thita = {}
-	      thita.email = res.Tt.Du;
+	      /*thita.email = res.Tt.Du;
 	      axios
 	        .post("/auth/google",thita)
 	        .then((res) => console.log(res))
-	        .catch((err) => console.log(err))
+	        .catch((err) => console.log(err))*/
 	    }))
 
 	}
