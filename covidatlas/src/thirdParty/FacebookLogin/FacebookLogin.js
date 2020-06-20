@@ -24,7 +24,7 @@ class FacebookLogin extends Component{
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-	      console.log(process.env.REACT_APP_FACEBOOK_ID);
+	      console.log(this.props);
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios
@@ -41,7 +41,7 @@ class FacebookLogin extends Component{
               localStorage.setItem('exp', res.data.tokenData.exp);
               localStorage.setItem('isAuthenticated', true);
 
-              props.history.push('/app')
+              this.props.history.push('/app')
             }
           })
           .catch((err) => {
