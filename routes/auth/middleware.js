@@ -127,8 +127,8 @@ const addLogin = (req,res,next) => {
 							let releasePacket = {
 								email : reqData.email,
 								login : true,
-								firstName : 'reqData.firstName',
-								lastName : 'reqData.lastName',
+								firstName : reqData.firstName,
+								lastName : reqData.lastName,
 								agreement : false
 							}											
 							responseData.login = releasePacket
@@ -136,6 +136,7 @@ const addLogin = (req,res,next) => {
 								.then(() => {
 									statusCode = 200
 									responseData.message = "success"
+									next();
 								})
 								.catch((err) => {
 									console.log(err);
@@ -154,7 +155,7 @@ const addLogin = (req,res,next) => {
 					statusCode = 403
 				}
 				
-				next();
+				//next();
 			})
 
 	}else{

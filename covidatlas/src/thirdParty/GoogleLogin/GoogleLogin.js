@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import { AuthContext } from './../../contexts/AuthContext';
 
-class FacebookLogin extends Component{
+class GoogleLogin extends Component{
 	constructor(props){
 		super(props);
 		this.props = props;
@@ -15,7 +15,7 @@ class FacebookLogin extends Component{
 
 	responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	    	console.log(this.props,"hereeeee");
+	    	
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 	      axios
@@ -32,7 +32,10 @@ class FacebookLogin extends Component{
 	              localStorage.setItem('exp', res.data.tokenData.exp);
 	              localStorage.setItem('isAuthenticated', true);
 
+	              console.log(this.props,"hereeeee");
 	              this.props.history.push('/app')
+	            }else{
+	            	console.log(res,'resss');
 	            }
 	          })
           .catch((err) => {
@@ -72,4 +75,4 @@ class FacebookLogin extends Component{
 }
 
 
-export default FacebookLogin;
+export default GoogleLogin;
