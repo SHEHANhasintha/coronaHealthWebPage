@@ -6,19 +6,22 @@ import axios from 'axios';
 
 import { AuthContext } from './../../contexts/AuthContext';
 
-export default function GoogleLogin(props){
+class FacebookLogin extends Component{
+	constructor(props){
+		super(props);
+		this.props = props;
+		this.responseGoogle = this.responseGoogle.bind(this);
+	}
 
-	const responseGoogle = (res,context) => {
+	responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	    	//console.log(res.profileObj.email);
+	    	console.log(res.profileObj.email);
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 	      axios
 	        .post(`http://localhost:5000/auth${context.loc}/google`,thita)
           .then((res) => {
             console.log(res)
-   	      console.log(props, "Here is the props section");
-
             if (res.status == 200){
               //toggleAuth(true)
               localStorage.setItem('email', res.data.login.email);
@@ -29,10 +32,7 @@ export default function GoogleLogin(props){
               localStorage.setItem('exp', res.data.tokenData.exp);
               localStorage.setItem('isAuthenticated', true);
 
-              props.history.push('/app')
-            }else{
-            	
-            	console.log("got 403");
+              this.props.history.push('/app')
             }
           })
           .catch((err) => {
@@ -43,11 +43,12 @@ export default function GoogleLogin(props){
 
 	}
 
-	const clicked = () => {
-		console.log("clicked",props);
+	clicked = () => {
+		console.log("clicked");
 
 	}
 
+	render(){
 		return(
 			 <AuthContext.Consumer>
 			 	{(context) => 
@@ -55,8 +56,8 @@ export default function GoogleLogin(props){
 					<GoogleLg
 					    clientId={"336956677618-qatmh1dqudm3b6isa9gu0ajk2aeec6la.apps.googleusercontent.com"}
 					    buttonText="Login"
-					    onClick = {clicked}
-					    onSuccess={(res) => responseGoogle(res,context)}
+					    onClick = {this.clicked}
+					    onSuccess={(res) => this.responseGoogle(res,context)}
 					    //onFailure={this.responseGoogle}
 					    cookiePolicy={'single_host_origin'} 
 						cssClass="my-Google-button-class loginBtn--google"
@@ -66,6 +67,9 @@ export default function GoogleLogin(props){
 			 </AuthContext.Consumer>
 
 		);
+	}
 
 }
 
+
+export default FacebookLogin;

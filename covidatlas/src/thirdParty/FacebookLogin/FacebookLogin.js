@@ -9,10 +9,14 @@ import { AuthContext } from './../../contexts/AuthContext';
 let fbId = process.env.REACT_APP_FACEBOOK_ID;
 
 
-export default function FacebookLogin(props) {
+class FacebookLogin extends Component{
+	constructor(props){
+		super(props);
+		this.props = props;
+		this.responseFacebook = this.responseFacebook.bind(this);
+	}
 
-
-	const responseFacebook = (res,context) => {
+	responseFacebook = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
 	      //console.log(res);
 	      //console.log(context);
@@ -21,12 +25,12 @@ export default function FacebookLogin(props) {
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-	      console.log(props, "Here is the props section");
+	      console.log(this.props);
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios
 	        .post(`http://localhost:5000/auth${context.loc}/facebook`,thita)
-          	.then((res) => {
+          .then((res) => {
             console.log(res)
             if (res.status == 200){
               //toggleAuth(true)
@@ -38,10 +42,7 @@ export default function FacebookLogin(props) {
               localStorage.setItem('exp', res.data.tokenData.exp);
               localStorage.setItem('isAuthenticated', true);
 
-              props.history.push('/app')
-            }else{
-            	
-            	console.log("got 403");
+              this.props.history.push('/app')
             }
           })
           .catch((err) => {
@@ -52,21 +53,18 @@ export default function FacebookLogin(props) {
 	    }))
 	}
 
-	const clicked = () => {
-		console.log("clicked",props);
-
-	}
+	render(){
 		return(
 			 <AuthContext.Consumer>
 				  {(context) => 
 					<div>
+				  	console.log(this.props)
 						<FacebookLg 
 						appId={fbId}
 						autoLoad={false}
 						fields="name,email,picture"
-						onClick={clicked}
-					
-						callback={(res) => responseFacebook(res,context)} 
+						onClick={this.componentClicked}
+						callback={(res) => this.responseFacebook(res,context)} 
 						cssClass="my-facebook-button-class"
 						/>
 					</div>
@@ -74,6 +72,9 @@ export default function FacebookLogin(props) {
 			 </AuthContext.Consumer>
 
 		);
-	
+	}
 
 }
+
+
+export default FacebookLogin;
