@@ -53,6 +53,7 @@ class FacebookLogin extends Component{
 			 <AuthContext.Consumer>
 			 	{(context) => 
 				<div>
+				{console.log(this.props)}
 					<GoogleLg
 					    clientId={"336956677618-qatmh1dqudm3b6isa9gu0ajk2aeec6la.apps.googleusercontent.com"}
 					    buttonText="Login"

@@ -58,7 +58,7 @@ class FacebookLogin extends Component{
 			 <AuthContext.Consumer>
 				  {(context) => 
 					<div>
-				  	console.log(this.props)
+				  	{console.log(this.props)}
 						<FacebookLg 
 						appId={fbId}
 						autoLoad={false}
