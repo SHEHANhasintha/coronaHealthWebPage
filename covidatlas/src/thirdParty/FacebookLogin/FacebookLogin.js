@@ -53,7 +53,7 @@ export default function FacebookLogin(props) {
 	}
 
 	const clicked = () => {
-		console.log("clicked");
+		console.log("clicked",props);
 
 	}
 		return(

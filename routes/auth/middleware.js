@@ -120,7 +120,6 @@ const addLogin = (req,res,next) => {
 		retrive(reqData.email)
 			.then((value) => {
 				if (value == false){
-						console.log("here");
 
 					tokenSigningJWT(reqData.email,reqData.password)
 						.then((token) => {
@@ -128,19 +127,27 @@ const addLogin = (req,res,next) => {
 							let releasePacket = {
 								email : reqData.email,
 								login : true,
-								firstName : reqData.firstName,
-								lastName : reqData.lastName,
+								firstName : 'reqData.firstName',
+								lastName : 'reqData.lastName',
 								agreement : false
 							}											
 							responseData.login = releasePacket
 							transever(reqData.email,reqData.password,token,'gfgfgh','ggggg',true,console.log)
-							statusCode = 200
-							responseData.message = "success"
-							next();
+								.then(() => {
+									console.log("hererrrrrrrrrrrrrrrrrr",releasePacket);
+									statusCode = 200
+									responseData.message = "success"
+								})
+								.catch((err) => {
+									console.log(err);
+									statusCode = 403;
+								})
+
+							
 						})
 						.catch((err) => {
 							console.log(err);
-							statusCode = 403;next();
+							statusCode = 403;
 						})
 
 					
