@@ -6,13 +6,9 @@ import axios from 'axios';
 
 import { AuthContext } from './../../contexts/AuthContext';
 
-class FacebookLogin extends Component{
-	constructor(props){
-		super(props);
-		this.responseGoogle = this.responseGoogle.bind(this);
-	}
+export default function GoogleLogin(props){
 
-	responseGoogle = (res,context) => {
+	const responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
 	    	console.log(res.profileObj.email);
 	      let thita = {}
@@ -42,12 +38,11 @@ class FacebookLogin extends Component{
 
 	}
 
-	clicked = () => {
+	const clicked = () => {
 		console.log("clicked");
 
 	}
 
-	render(){
 		return(
 			 <AuthContext.Consumer>
 			 	{(context) => 
@@ -55,8 +50,8 @@ class FacebookLogin extends Component{
 					<GoogleLg
 					    clientId={"336956677618-qatmh1dqudm3b6isa9gu0ajk2aeec6la.apps.googleusercontent.com"}
 					    buttonText="Login"
-					    onClick = {this.clicked}
-					    onSuccess={(res) => this.responseGoogle(res,context)}
+					    onClick = {clicked}
+					    onSuccess={(res) => responseGoogle(res,context)}
 					    //onFailure={this.responseGoogle}
 					    cookiePolicy={'single_host_origin'} 
 						cssClass="my-Google-button-class loginBtn--google"
@@ -66,9 +61,6 @@ class FacebookLogin extends Component{
 			 </AuthContext.Consumer>
 
 		);
-	}
 
 }
 
-
-export default FacebookLogin;

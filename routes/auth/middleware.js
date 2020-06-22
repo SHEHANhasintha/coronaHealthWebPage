@@ -108,7 +108,6 @@ const checkLoggin = (req,res,next) => {
 
 
 const addLogin = (req,res,next) => {
-	console.log("here");
 	//transever(req.body.email,req.body.password,console.log)
 	
 	let userNameValidated = userNameValidation(reqData.email)
@@ -121,6 +120,8 @@ const addLogin = (req,res,next) => {
 		retrive(reqData.email)
 			.then((value) => {
 				if (value == false){
+						console.log("here");
+
 					tokenSigningJWT(reqData.email,reqData.password)
 						.then((token) => {
 							responseData.tokenData = token;
@@ -137,7 +138,10 @@ const addLogin = (req,res,next) => {
 							responseData.message = "success"
 							next();
 						})
-						.catch((err) => {statusCode = 403;next();})
+						.catch((err) => {
+							console.log(err);
+							statusCode = 403;next();
+						})
 
 					
 				}else{

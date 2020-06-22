@@ -9,13 +9,10 @@ import { AuthContext } from './../../contexts/AuthContext';
 let fbId = process.env.REACT_APP_FACEBOOK_ID;
 
 
-class FacebookLogin extends Component{
-	constructor(props){
-		super(props);
-		this.responseFacebook = this.responseFacebook.bind(this);
-	}
+export default function FacebookLogin(props) {
 
-	responseFacebook = (res,context) => {
+
+	const responseFacebook = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
 	      //console.log(res);
 	      //console.log(context);
@@ -24,7 +21,7 @@ class FacebookLogin extends Component{
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-	      console.log(this.props);
+	      console.log(props);
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios
@@ -41,7 +38,7 @@ class FacebookLogin extends Component{
               localStorage.setItem('exp', res.data.tokenData.exp);
               localStorage.setItem('isAuthenticated', true);
 
-              this.props.history.push('/app')
+              props.history.push('/app')
             }
           })
           .catch((err) => {
@@ -52,7 +49,10 @@ class FacebookLogin extends Component{
 	    }))
 	}
 
-	render(){
+	const clicked = () => {
+		console.log("clicked");
+
+	}
 		return(
 			 <AuthContext.Consumer>
 				  {(context) => 
@@ -61,8 +61,9 @@ class FacebookLogin extends Component{
 						appId={fbId}
 						autoLoad={false}
 						fields="name,email,picture"
-						onClick={this.componentClicked}
-						callback={(res) => this.responseFacebook(res,context)} 
+						onClick={clicked}
+					
+						callback={(res) => responseFacebook(res,context)} 
 						cssClass="my-facebook-button-class"
 						/>
 					</div>
@@ -70,9 +71,6 @@ class FacebookLogin extends Component{
 			 </AuthContext.Consumer>
 
 		);
-	}
+	
 
 }
-
-
-export default FacebookLogin;

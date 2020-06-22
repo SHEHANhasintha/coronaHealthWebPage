@@ -126,7 +126,7 @@ export default function SignInSide(props) {
 
        if (context.validation){ 
         axios
-          .post(`/auth${context.loc}/local`,thita)
+          .post(`http://localhost:5000/auth${context.loc}/local`,thita)
           .then((res) => {
             console.log(res)
             if (res.status == 200){
