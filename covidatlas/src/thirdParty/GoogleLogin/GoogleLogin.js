@@ -23,7 +23,6 @@ class GoogleLogin extends Component{
 	          .then((res) => {
 	            console.log(res)
 	            if (res.status == 200){
-	              //toggleAuth(true)
 	              localStorage.setItem('email', res.data.login.email);
 	              localStorage.setItem('firstName', res.data.login.firstName);
 	              localStorage.setItem('lastName', res.data.login.lastName);
@@ -31,9 +30,7 @@ class GoogleLogin extends Component{
 	              localStorage.setItem('iat', res.data.tokenData.iat);
 	              localStorage.setItem('exp', res.data.tokenData.exp);
 	              localStorage.setItem('isAuthenticated', true);
-
-	              console.log(this.props,"hereeeee");
-	              this.props.history.push('/app')
+	              this.props.props.history.push('/app')
 	            }else{
 	            	console.log(res,'resss');
 	            }
@@ -65,6 +62,7 @@ class GoogleLogin extends Component{
 					    cookiePolicy={'single_host_origin'} 
 						cssClass="my-Google-button-class loginBtn--google"
 					    />
+				
 				</div>
 				}
 			 </AuthContext.Consumer>
