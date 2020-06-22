@@ -45,8 +45,8 @@ class FacebookLogin extends Component{
               localStorage.setItem('isAuthenticated', true);
 
 
-              window.location.href = "/app"
-              //history.push('/app')
+              //window.location.href = "/app"
+              this.props.history.push('/app')
             }
           })
           .catch((err) => {

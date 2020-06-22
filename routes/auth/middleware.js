@@ -134,7 +134,6 @@ const addLogin = (req,res,next) => {
 							responseData.login = releasePacket
 							transever(reqData.email,reqData.password,token,'gfgfgh','ggggg',true,console.log)
 								.then(() => {
-									console.log("hererrrrrrrrrrrrrrrrrr",releasePacket);
 									statusCode = 200
 									responseData.message = "success"
 								})
