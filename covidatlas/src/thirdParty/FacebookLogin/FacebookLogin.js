@@ -39,6 +39,9 @@ export default function FacebookLogin(props) {
               localStorage.setItem('isAuthenticated', true);
 
               props.history.push('/app')
+            }else{
+            	
+            	console.log("got 403");
             }
           })
           .catch((err) => {
