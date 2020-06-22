@@ -21,12 +21,12 @@ export default function FacebookLogin(props) {
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-	      console.log(props);
+	      console.log(props, "Here is the props section");
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios
 	        .post(`http://localhost:5000/auth${context.loc}/facebook`,thita)
-          .then((res) => {
+          	.then((res) => {
             console.log(res)
             if (res.status == 200){
               //toggleAuth(true)

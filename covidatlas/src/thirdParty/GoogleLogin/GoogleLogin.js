@@ -10,13 +10,15 @@ export default function GoogleLogin(props){
 
 	const responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	    	console.log(res.profileObj.email);
+	    	//console.log(res.profileObj.email);
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 	      axios
 	        .post(`http://localhost:5000/auth${context.loc}/google`,thita)
           .then((res) => {
             console.log(res)
+   	      console.log(props, "Here is the props section");
+
             if (res.status == 200){
               //toggleAuth(true)
               localStorage.setItem('email', res.data.login.email);
@@ -35,7 +37,7 @@ export default function GoogleLogin(props){
           })
           .catch((err) => {
             console.log(err)
-            updateEmailFail(true);
+            //updateEmailFail(true);
             })
 	    }))
 
