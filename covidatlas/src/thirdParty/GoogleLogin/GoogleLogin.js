@@ -19,7 +19,7 @@ class GoogleLogin extends Component{
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 	      axios
-	    	  .post(`http://localhost:5000/auth${context.loc}/google`,thita)
+	    	  .post(`/auth${context.loc}/google`,thita)
 	          .then((res) => {
 	            console.log(res)
 	            if (res.status == 200){

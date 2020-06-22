@@ -96,7 +96,7 @@ export default function SignInSide(props) {
       contextValue.locationWindow('/signin')
   },[background]);
 
-  const submitCredentials = (e,context,cb) => {
+  const submitCredentials = (e,context,cb,toggleTheme,updateEmailFail) => {
     e.preventDefault();
     //callback function would be to call toggleAuth
     return(new Promise(async(resolve,reject) => {
@@ -105,6 +105,9 @@ export default function SignInSide(props) {
       thita.email = context.email;
       thita.password = context.password;
 
+      checkValidation(context,cb,toggleTheme)
+
+      if (context.validation){ 
       axios
         .post(`/auth${context.loc}/local`,thita)
         .then((res) => {
@@ -127,8 +130,46 @@ export default function SignInSide(props) {
           }
         })
         .catch((err) => console.log(err))
-      //await resolve(cb());
+      }
     }))
+  }
+
+
+  const checkValidation = (context,cb,toggleTheme) => {
+
+    var regexEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    var regexPassword = new RegExp(/(?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*/);
+
+    var validRegexEmail = regexEmail.test(context.email);
+    var validRegexPassword = regexPassword.test(context.password);
+
+
+    if (!validRegexEmail &&
+     !validRegexPassword){
+      cb(false);
+    }else{
+      cb(true);
+    }
+
+    toggleTheme(true,
+      !validRegexEmail,
+      !validRegexPassword
+      );
+    
+  }
+
+  const messageEmialFail = (context,themeContext) => {
+
+    if (context.emailFail){
+      console.log("there we are");
+      return ("Email is already in use");
+    }
+
+    if (themeContext.email){
+      return ("Email is required")
+    }else{
+     return false;
+    }
   }
 
   const handleChangeEmailField = (e,cb) => {
@@ -200,29 +241,42 @@ export default function SignInSide(props) {
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
-              onChange={(e) => handleChangeEmailField(e,context.updateEmail)}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
+            <Grid item xs={12}>
               <TextField
-                onChange={(e) => handleChangePasswordFiled(e,context.updatePassword)}
-                variant="outlined"
+                error={themeContext.email}
+                helperText={messageEmialFail(context,themeContext)}
+                onChange={(e) => handleChangeEmailField(e,context.updateEmail,context)}
+                variant="filled"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                style={{backgroundColor:themeContextToggler('email',themeContext)}}
+                autoComplete="email"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                error={themeContext.password}
+                helperText={themeContext.password ? 
+                "Password is required!"
+                 : false}
+                onChange={(e) => handleChangePasswordFiled(e,context.updatePassword,context)}
+                variant="filled"
                 required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
+                style={{backgroundColor:themeContextToggler('password',themeContext)}}
                 autoComplete="current-password"
+                autoFocus
               />
+            </Grid>
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -233,7 +287,7 @@ export default function SignInSide(props) {
               variant="contained"
               color="primary"
               className={classes.submit} 
-              onClick={(e) => submitCredentials(e,context,context.toggleAuth).then(() => console.log(context))}
+              onClick={(e) => submitCredentials(e,context,context.toggleValidation,themeContext.toggleTheme,context.updateEmailFail)}
             >
               Sign In
             </Button>

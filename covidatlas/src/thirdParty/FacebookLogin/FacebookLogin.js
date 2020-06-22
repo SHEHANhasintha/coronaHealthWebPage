@@ -18,20 +18,16 @@ class FacebookLogin extends Component{
 
 	responseFacebook = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	      //console.log(res);
-	      //console.log(context);
-	      	    	console.log(this.props,"hereeeee");
+	      console.log(res);
 
 	      let thita = {}
 
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-	      //console.log(this.props);
-/*
-	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
+
 	      axios
-	        .post(`http://localhost:5000/auth${context.loc}/facebook`,thita)
+	        .post(`/auth${context.loc}/facebook`,thita)
           .then((res) => {
             console.log(res)
             if (res.status == 200){
@@ -43,9 +39,7 @@ class FacebookLogin extends Component{
               localStorage.setItem('iat', res.data.tokenData.iat);
               localStorage.setItem('exp', res.data.tokenData.exp);
               localStorage.setItem('isAuthenticated', true);
-
-
-              //window.location.href = "/app"
+              
               this.props.history.push('/app')
             }
           })
