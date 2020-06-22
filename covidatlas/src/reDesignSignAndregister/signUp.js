@@ -463,8 +463,8 @@ export default function SignInSide(props) {
           </Grid>
         </form>
         </div>
-        <FaceBook/>
-        <GoogleLogin/>
+        <FaceBook props={props}/>
+        <GoogleLogin props={props}/>
         <Footer/>
       </Grid>
     </Grid>

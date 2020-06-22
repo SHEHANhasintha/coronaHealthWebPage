@@ -20,12 +20,14 @@ class FacebookLogin extends Component{
 	    return(new Promise(async(resolve,reject) => {
 	      //console.log(res);
 	      //console.log(context);
+	      	    	console.log(this.props,"hereeeee");
+
 	      let thita = {}
 
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
 
-	      console.log(this.props);
+	      //console.log(this.props);
 /*
 	      console.log(thita,process.env.REACT_APP_APPLICATION_PROXY+ "/auth/local");*/
 	      axios
@@ -42,7 +44,9 @@ class FacebookLogin extends Component{
               localStorage.setItem('exp', res.data.tokenData.exp);
               localStorage.setItem('isAuthenticated', true);
 
-              this.props.history.push('/app')
+
+              window.location.href = "/app"
+              //history.push('/app')
             }
           })
           .catch((err) => {
@@ -58,7 +62,7 @@ class FacebookLogin extends Component{
 			 <AuthContext.Consumer>
 				  {(context) => 
 					<div>
-				  	{console.log(this.props)}
+				  	
 						<FacebookLg 
 						appId={fbId}
 						autoLoad={false}

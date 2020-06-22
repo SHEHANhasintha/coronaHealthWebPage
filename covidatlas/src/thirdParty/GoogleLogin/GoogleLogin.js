@@ -15,7 +15,7 @@ class FacebookLogin extends Component{
 
 	responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	    	console.log(res.profileObj.email);
+	    	console.log(this.props,"hereeeee");
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 	      axios
@@ -53,7 +53,6 @@ class FacebookLogin extends Component{
 			 <AuthContext.Consumer>
 			 	{(context) => 
 				<div>
-				{console.log(this.props)}
 					<GoogleLg
 					    clientId={"336956677618-qatmh1dqudm3b6isa9gu0ajk2aeec6la.apps.googleusercontent.com"}
 					    buttonText="Login"
