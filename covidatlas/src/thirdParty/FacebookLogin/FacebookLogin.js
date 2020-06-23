@@ -24,6 +24,9 @@ class FacebookLogin extends Component{
 
 	      thita.email = res.email;
 	      thita.accessToken = res.accessToken;
+	      thita.firstName = res.name;
+	      thita.usreId = res.id;
+	      thita.picture = res.picture.data.url;
 
 
 	      axios
@@ -39,8 +42,8 @@ class FacebookLogin extends Component{
               localStorage.setItem('iat', res.data.tokenData.iat);
               localStorage.setItem('exp', res.data.tokenData.exp);
               localStorage.setItem('isAuthenticated', true);
-              
-              this.props.history.push('/app')
+              console.log(this.props);
+              this.props.props.history.push('/app')
             }
           })
           .catch((err) => {

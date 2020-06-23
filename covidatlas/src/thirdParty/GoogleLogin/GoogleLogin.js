@@ -15,7 +15,7 @@ class GoogleLogin extends Component{
 
 	responseGoogle = (res,context) => {
 	    return(new Promise(async(resolve,reject) => {
-	    	
+	    	console.log(res)
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 	      axios
@@ -30,6 +30,7 @@ class GoogleLogin extends Component{
 	              localStorage.setItem('iat', res.data.tokenData.iat);
 	              localStorage.setItem('exp', res.data.tokenData.exp);
 	              localStorage.setItem('isAuthenticated', true);
+	              console.log(this.props);
 	              this.props.props.history.push('/app')
 	            }else{
 	            	console.log(res,'resss');
