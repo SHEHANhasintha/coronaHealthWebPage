@@ -16,7 +16,7 @@ let responseData = {
 	message: ""
 }
 
-let statusCode = 404;
+let statusCode = 200;
 
 let reqData = {};
 
@@ -139,14 +139,14 @@ const addLogin = (req,res,next) => {
 									next();
 								})
 								.catch((err) => {
-									console.log(err);
+									//console.log(err);
 									statusCode = 403;
 								})
 
 							
 						})
 						.catch((err) => {
-							console.log(err);
+							//console.log(err);
 							statusCode = 403;
 						})
 
@@ -173,7 +173,7 @@ const local = (req,res,next) => {
 			password : hash.trim(),
 			token: req.body.token === undefined ? false : req.body.token.trim()
 		}
-		console.log(reqData)
+		//console.log(reqData)
 		next();
 	})
 
@@ -181,7 +181,7 @@ const local = (req,res,next) => {
 }
 
 const localSignUp = (req,res,next) => {
-	console.log(req.body);
+	//console.log(req.body);
 
 	encryptPass(req.body.password.trim()).then((hash) => 
 		{
@@ -198,7 +198,7 @@ const localSignUp = (req,res,next) => {
 }
 
 const fbCheckup = (req,res,next) => {
-	console.log(req.body.email.trim());
+	//console.log(req.body.email.trim());
 	reqData = {
 		email : req.body.email.trim(),
 		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
@@ -216,6 +216,8 @@ const googleCheckup = (req,res,next) => {
 }
 
 const sendres = (req,res,next) => {
+	console.log(req.body,"sending now")
+
 	res.status(statusCode)
 	res.json(responseData)
 }

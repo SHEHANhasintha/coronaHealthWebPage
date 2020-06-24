@@ -13,6 +13,6 @@ router.use(bodyParser.raw());
 const { checkLoggin, sendres, local } = require('./applicationAuthMiddleware');
 
 //loggedIn
-router.post('/local/tokenrenew' , local, checkLoggin, sendres, (req, res) => {});
+router.post('/local/tokenrenew' , local, checkLoggin, sendres);
 
 module.exports = router;

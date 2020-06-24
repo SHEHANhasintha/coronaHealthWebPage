@@ -18,6 +18,8 @@ class GoogleLogin extends Component{
 	    	console.log(res)
 	      let thita = {}
 	      thita.email = res.profileObj.email;
+
+	      console.log(thita);	      
 	      axios
 	    	  .post(`/auth${context.loc}/google`,thita)
 	          .then((res) => {

@@ -5,6 +5,7 @@ import './Facebook.css';
 import axios from 'axios';
 
 import { AuthContext } from './../../contexts/AuthContext';
+import { postData } from './../../../handleBars/helper'
 
 let fbId = process.env.REACT_APP_FACEBOOK_ID;
 
@@ -29,6 +30,13 @@ class FacebookLogin extends Component{
 	      thita.picture = res.picture.data.url;
 
 
+
+
+      postData(`/auth${context.loc}/facebook`,thita)
+        .then((res) => {
+          console.log(res);
+
+	      console.log(thita);
 	      axios
 	        .post(`/auth${context.loc}/facebook`,thita)
           .then((res) => {
@@ -50,7 +58,13 @@ class FacebookLogin extends Component{
             console.log(err)
             //updateEmailFail(true);
             })
-	      //await resolve(cb());
+
+        })
+        .catch((err) => {
+          console.log(err)
+          updateEmailFail(true);
+        })
+
 	    }))
 	}
 

@@ -13,19 +13,19 @@ router.use(bodyParser.raw());
 const { checkLoggin, addLogin, sendres, local, fbCheckup, googleCheckup, localSignUp } = require('./middleware');
 
 //Signup
-router.post('/signup/local' , localSignUp, addLogin, sendres, (req, res) => {});
+router.post('/signup/local' , localSignUp, addLogin, sendres);
 
-router.post('/signup/facebook',fbCheckup , addLogin, sendres, (req, res) => {});
+router.post('/signup/facebook',fbCheckup , addLogin, sendres);
 
-router.post('/signup/google',googleCheckup , addLogin, sendres, (req, res) => {});
+router.post('/signup/google',googleCheckup , addLogin, sendres);
 
 
 //signIn
-router.post('/signin/local' , local, checkLoggin, sendres, (req, res) => {});
+router.post('/signin/local' , local, checkLoggin, sendres);
 
-router.post('/signin/facebook',fbCheckup , checkLoggin, sendres, (req, res) => {});
+router.post('/signin/facebook',fbCheckup , checkLoggin, sendres);
 
-router.post('/signin/google',googleCheckup , checkLoggin, sendres, (req, res) => {});
+router.post('/signin/google',googleCheckup , checkLoggin, sendres);
 
 
 module.exports = router;

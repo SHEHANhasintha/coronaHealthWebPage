@@ -55,7 +55,7 @@ const checkLoggin = (req,res,next) => {
 										lastName : value.lastName,
 										agreement : value.agreement
 									}											
-									console.log(releasePacket);
+									//console.log("releasePacket",releasePacket);
 									responseData.login = releasePacket
 									statusCode = 200
 									responseData.message = "success"	
@@ -80,6 +80,7 @@ const checkLoggin = (req,res,next) => {
 			})
 
 	}else{
+		console.log("here tokenreneew login check");
 		statusCode = 403
 		next();
 	}
@@ -93,13 +94,15 @@ const local = (req,res,next) => {
 		email : req.body.email.trim(),
 		token: req.body.token.trim()
 	}
-	console.log(reqData)
+	//console.log(reqData)
 	next();
 
 }
 
 
 const sendres = (req,res,next) => {
+	console.log("sending now")
+
 	res.status(statusCode)
 	res.json(responseData)
 }

@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "covidatlas": "npm run start --prefix covidatlas",
     "dev": "concurrently \"npm run server\" \"npm run covidatlas\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix covidatlas && npm run build --prefix covidatlas",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true npm install --prefix covidatlas && npm run build --prefix covidatlas",
     "ev": "NODE_ENV=test"
   },
   "author": "Shehan",
@@ -16,6 +16,7 @@
   "dependencies": {
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "concurrently": "^5.1.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

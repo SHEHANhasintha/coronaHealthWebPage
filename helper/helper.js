@@ -70,5 +70,4 @@ const tokenValidatingJWT = (token) => {
 	)
 }
 
-
 module.exports = { tokenGenerator, encryptPass, comparePass, tokenSigningJWT, tokenValidatingJWT }

@@ -122,34 +122,67 @@ export default function SignInSide(props) {
       thita.email = context.email;
       thita.password = context.password;
 
-      checkValidation(context,cb,toggleTheme)
+      checkValidation(context,cb,toggleTheme).then((value) => {
 
-       if (context.validation){ 
-        axios
-          .post(`/auth${context.loc}/local`,thita)
-          .then((res) => {
-            console.log(res)
-            if (res.status == 200){
-              //toggleAuth(true)
-              localStorage.setItem('email', res.data.login.email);
-              localStorage.setItem('firstName', res.data.login.firstName);
-              localStorage.setItem('lastName', res.data.login.lastName);
-              localStorage.setItem('token', res.data.tokenData.token);
-              localStorage.setItem('iat', res.data.tokenData.iat);
-              localStorage.setItem('exp', res.data.tokenData.exp);
-              localStorage.setItem('isAuthenticated', true);
+      if (value){ 
+        console.log("valueeeeeeee",value);
+      postData(`/auth${context.loc}/local`,thita)
+            .then((res) => {
+              console.log(res)
+              if (res.message == 'success'){
+                //toggleAuth(true)
+                localStore('email', res.login.email);
+                localStore('firstName', res.login.firstName);
+                localStore('lastName', res.login.lastName);
+                localStore('token', res.tokenData.token);
+                localStore('iat', res.tokenData.iat);
+                localStore('exp', res.tokenData.exp);
+                localStore('isAuthenticated', true)
+                  .then(() => {
+                    thita = {};
+                    value = false;
+                    props.history.push('/app')
 
-              props.history.push('/app')
-            }
-          })
-          .catch((err) => {
-            console.log(err)
-            updateEmailFail(true);
+                    console.log(thita);
+                  })
+
+
+              }
             })
+            .catch((err) => {
+              console.log(err)
+              updateEmailFail(true);
+              })
       }
 
 
+      })
     }))
+  }
+
+ const postData = async (url = '', data = {}) => {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+
+  const localStore = (key,value) => {
+    return Promise.resolve().then(function () {
+        localStorage.setItem(key, value);
+    });
   }
 
   const handleChangeEmailField = (e,cb,context) => {
@@ -205,10 +238,12 @@ export default function SignInSide(props) {
   }
 
   const checkValidation = (context,cb,toggleTheme) => {
+    return(new Promise((resolve,reject) => {
 
     var regexEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    var regexFirstName = new RegExp(/[a-z]{1,10}/);
-    var regexLastName = new RegExp(/[a-z]{1,10}/);
+    var regexFirstName = new RegExp(/([a-zA-Z])+([ -~])*/);
+    var regexLastName = new RegExp(/([a-zA-Z])+([ -~])*/);
+    var regexRepeatPassword = new RegExp(/([a-zA-Z])+([ -~])*/);
     var regexPassword = new RegExp(/(?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*/);
 
     var validRegexEmail = regexEmail.test(context.email);
@@ -218,23 +253,28 @@ export default function SignInSide(props) {
     var validRegexRepeatPassword;
     var validLicenceCheckOut = context.licenceCheckOut;
 
-    if (context.password == context.repeatPassword){
+
+    //validRegexRepeatPassword = regexRepeatPassword.test(context.repeatPassword);
+
+
+    if ((context.password == context.repeatPassword) && (regexRepeatPassword.test(context.repeatPassword))){
       validRegexRepeatPassword = true
     }else{
       validRegexRepeatPassword = false
     }
 
-    //console.log(validRegexEmail,validRegexFirstName,validRegexLastName,validRegexPassword,validRegexRepeatPassword,validLicenceCheckOut);
 
-    if (!validRegexEmail &&
-     !validRegexFirstName &&
-     !validRegexLastName &&
-     !validRegexPassword &&
-     !validRegexRepeatPassword && 
-     !validLicenceCheckOut){
-      cb(false);
-    }else{
-      cb(true);
+    console.log(validRegexEmail,validRegexFirstName,validRegexLastName,validRegexPassword,validRegexRepeatPassword,validLicenceCheckOut);
+
+    if (validRegexEmail &&
+     validRegexFirstName &&
+     validRegexLastName &&
+     validRegexPassword &&
+     validRegexRepeatPassword && 
+     validLicenceCheckOut){
+        cb(true).then(() => {resolve(true)});
+      }else{
+        cb(false).then(() => {resolve(false)});
     }
 
     toggleTheme(true,
@@ -245,7 +285,8 @@ export default function SignInSide(props) {
       !validRegexRepeatPassword,
       !validLicenceCheckOut
       );
-    
+    }) 
+    )
   }
 
 

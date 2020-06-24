@@ -105,57 +105,100 @@ export default function SignInSide(props) {
       thita.email = context.email;
       thita.password = context.password;
 
-      checkValidation(context,cb,toggleTheme)
+      checkValidation(context,cb,toggleTheme).then((value) => {
+                console.log(context.validation, "qqqqqqqqqqqqqqqq");
 
-      if (context.validation){ 
-      axios
-        .post(`/auth${context.loc}/local`,thita)
+      if (value){ 
+
+
+      postData(`/auth${context.loc}/local`,thita)
         .then((res) => {
           console.log(res);
-          if (res.status == 200){
-            localStorage.setItem('email', res.data.login.email);
-            localStorage.setItem('firstName', res.data.login.firstName);
-            localStorage.setItem('lastName', res.data.login.lastName);
-            localStorage.setItem('token', res.data.tokenData.token);
-            localStorage.setItem('iat', res.data.tokenData.iat);
-            localStorage.setItem('exp', res.data.tokenData.exp);
-            localStorage.setItem('isAuthenticated', true);
+          axios
+            .post(`/auth${context.loc}/local`,thita)
+            .then((res) => {
+              console.log(res);
+              if (res.status == 200){
+                localStore('email', res.data.login.email);
+                localStore('firstName', res.data.login.firstName);
+                localStore('lastName', res.data.login.lastName);
+                localStore('token', res.data.tokenData.token);
+                localStore('iat', res.data.tokenData.iat);
+                localStore('exp', res.data.tokenData.exp);
+                localStore('isAuthenticated', true)
+                  .then(() => {
+                      props.history.push('/app')
+                    })
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              updateEmailFail(true);
+            })
 
 
-      //console.log(this.state,"here");
-      //props.history.push("./app")
-      
-            props.history.push("./app")
 
-          }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err)
+          updateEmailFail(true);
+        })
       }
+      })
+
     }))
+  }
+
+ const postData = async (url = '', data = {}) => {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+
+
+  const localStore = (key,value) => {
+    return Promise.resolve().then(function () {
+        localStorage.setItem(key, value);
+    });
   }
 
 
   const checkValidation = (context,cb,toggleTheme) => {
+    return(new Promise((resolve,rejact) => {
+      var regexEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      var regexPassword = new RegExp(/(?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*/);
 
-    var regexEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    var regexPassword = new RegExp(/(?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*/);
+      var validRegexEmail = regexEmail.test(context.email);
+      var validRegexPassword = regexPassword.test(context.password);
 
-    var validRegexEmail = regexEmail.test(context.email);
-    var validRegexPassword = regexPassword.test(context.password);
+      console.log(validRegexEmail,validRegexPassword,"lllllllllllllllllllllll");
 
+      if (!validRegexEmail &&
+       !validRegexPassword){
+        cb(false).then(() => {resolve(false)});
+      }else{
+        cb(true).then(() => {resolve(true)});
+      }
 
-    if (!validRegexEmail &&
-     !validRegexPassword){
-      cb(false);
-    }else{
-      cb(true);
-    }
-
-    toggleTheme(true,
-      !validRegexEmail,
-      !validRegexPassword
-      );
-    
+      toggleTheme(true,
+        !validRegexEmail,
+        !validRegexPassword
+        );
+    })
+    )
   }
 
   const messageEmialFail = (context,themeContext) => {

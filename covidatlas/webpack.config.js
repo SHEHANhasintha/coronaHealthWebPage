@@ -64,8 +64,14 @@ module.exports = env => {
     historyApiFallback: true,
     proxy: {
         '/auth': {
-            target: 'http://localhost:5000',
-            secure: true
+            target: "http://localhost:5000",
+            secure: false,
+            changeOrigin: true,
+            logLevel: "debug",
+            changeOrigin: true,
+            headers: {
+              Connection: "keep-alive"
+            }         
         }
     },
     contentBase: './public',

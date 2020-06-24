@@ -7,6 +7,9 @@ const cors = require('cors')
 const bodyparser = require('body-parser')
 const router = express.Router();
 const mongodb = require('./database/loginHandler/mongoDbconnection');
+const compression = require('compression')
+
+
 
 require('dotenv').config({ path: './.env.development' });
 const port = process.env.PORT || 5000;
@@ -15,30 +18,48 @@ const authenticationHandlerLocal = require('./routes/auth/authLocal');
 const authenticationHandlerApp= require('./routes/app/applicationRoutes');
 //console.log(process.env.DBSERVER)
 
+const corsOptions = {
+  origin: 'https://yourdomain.com'
+}
+
 var app = express();
+app.use(cors());
+app.options('*', cors())
 app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
 
 //default router path
 app.set('routes', path.resolve(__dirname, './routes'));
 
-app.use(cors());
+
 app.use(logger('dev'));
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(compression())
+
+
+// View engine setup
+app.set("views", path.join(__dirname,"views"));
+app.set("view engine", "ejs");
+
 //database preperation
 mongodb._connect();
+
+
+
 
 app.use('/', indexRouter);
 app.use('/app', authenticationHandlerApp);
 app.use('/auth', authenticationHandlerLocal);
 
 
-app.get("*", function(request, response) {
-  response.sendFile(path.resolve(__dirname, "./covidatlas/build", "index.html"));
+app.get("*",async function(request, response) {
+	//response.status(200).render(path.resolve(__dirname, "./covidatlas/build", "index.html"), {reactApp: reactComp});
+  	response.sendFile(path.resolve(__dirname, "./covidatlas/build", "index.html"));
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
