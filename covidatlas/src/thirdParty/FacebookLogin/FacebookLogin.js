@@ -31,7 +31,7 @@ class FacebookLogin extends Component{
 
         console.log(thita);
         axios
-          .post(`/auth${context.loc}/facebook`,thita)
+          .post(`http://localhost:5000/auth${context.loc}/facebook`,thita)
           .then((res) => {
             console.log(res)
             if (res.status == 200){
