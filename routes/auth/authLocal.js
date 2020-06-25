@@ -10,22 +10,24 @@ const mongoDb = require('mongodb');
 router.use(bodyParser.json());
 router.use(bodyParser.raw());*/
 
-const { checkLoggin, addLogin, sendres, local, fbCheckup, googleCheckup, localSignUp, crackHead } = require('./middleware');
+const { checkLoggin, addLogin, sendres, local, fbCheckupStore, googleCheckupStore, fbCheckupRetrive, googleCheckupRetrive, localSignUp, crackHead } = require('./middleware');
 
 //Signup
 router.post('/signup/local' , localSignUp, addLogin, sendres);
 
-router.post('/signup/facebook',fbCheckup , addLogin, sendres);
+router.post('/signup/facebook',fbCheckupStore , addLogin, sendres);
 
-router.post('/signup/google',googleCheckup , addLogin, sendres);
+router.post('/signup/google',googleCheckupStore , addLogin, sendres);
 
 
 //signIn
 router.post('/signin/local' , local, checkLoggin, sendres);
 
-router.post('/signin/facebook',fbCheckup , checkLoggin, sendres);
+router.post('/signin/facebook',fbCheckupRetrive , checkLoggin, sendres);
 
-router.post('/signin/google',googleCheckup , checkLoggin, sendres);
+router.post('/signin/google',googleCheckupRetrive , checkLoggin, sendres);
+
+
 
 router.post('/signin/test',local, checkLoggin, crackHead, sendres);
 

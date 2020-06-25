@@ -53,7 +53,7 @@ const checkLoggin = (req,res,next) => {
 			.then((value) => {
 				if (value != false){
 					//console.log(value.password,req.body.password);
-					comparePass(value.password,req.body.password).then((result) => 
+					comparePass(value.password,reqData.password).then((result) => 
 							{
 								console.log("now ia m here",result);
 								updateUserToken().then((token) => {
@@ -89,11 +89,14 @@ const checkLoggin = (req,res,next) => {
 						.catch((err) => {
 							statusCode = 403
 							responseData.message = "failed"
+							console.log("password unmatch");
 							next();	
 						})
 					//transever(req.body.email,req.body.password,console.log)
 				}else{
 					statusCode = 403
+					responseData.message = "failed"
+					console.log("email does not exist");
 					next();	
 				}
 				//responseData.login = value
@@ -104,11 +107,14 @@ const checkLoggin = (req,res,next) => {
 			.catch((err) => {
 				statusCode = 403
 				responseData.message = "failed"
+				console.log("email does not exist");
 				next();	
 			})
 
 	}else{
 		statusCode = 403
+		responseData.message = "failed"
+		console.log("invalid password or userName");
 		next();
 	}
 	
@@ -136,7 +142,7 @@ const addLogin = (req,res,next) => {
 								agreement : false
 							}											
 							responseData.login = releasePacket
-							transever(reqData.email,reqData.password,token,'gfgfgh','ggggg',true,console.log)
+							transever(reqData.email,reqData.password,token,reqData.firstName,reqData.lastName,true,console.log)
 								.then(() => {
 									statusCode = 200
 									responseData.message = "success"
@@ -205,23 +211,58 @@ const localSignUp = (req,res,next) => {
 	)	
 }
 
-const fbCheckup = (req,res,next) => {
-	//console.log(req.body.email.trim());
-	reqData = {
-		email : req.body.email.trim(),
-		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
-	}
-	next();
+const fbCheckupStore = (req,res,next) => {
+	console.log(req.body.email.trim());
+
+	let password = "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp";
+	encryptPass(password.trim()).then((hash) => {
+		reqData = {
+			email : req.body.email.trim(),
+			password : hash.trim(),
+			token: req.body.token === undefined ? false : req.body.token.trim()
+		}
+		next();
+	})	
+
 }
 
-const googleCheckup = (req,res,next) => {
+const googleCheckupStore = (req,res,next) => {
 	console.log(req.body.email.trim());
+	let password = "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp";
+	encryptPass(password.trim()).then((hash) => {
+		reqData = {
+			email : req.body.email.trim(),
+			password : hash.trim(),
+			token: req.body.token === undefined ? false : req.body.token.trim()
+		}
+		next();
+	})	
+}
+
+const fbCheckupRetrive = (req,res,next) => {
+	console.log(req.body.email.trim());
+
+	let password = "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp";
 	reqData = {
 		email : req.body.email.trim(),
-		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
+		password : password.trim(),
+		token: req.body.token === undefined ? false : req.body.token.trim()
 	}
-
 	next();
+	
+
+}
+
+const googleCheckupRetrive = (req,res,next) => {
+	console.log(req.body.email.trim());
+	let password = "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp";
+	reqData = {
+		email : req.body.email.trim(),
+		password : password.trim(),
+		token: req.body.token === undefined ? false : req.body.token.trim()
+	}
+	next();
+
 }
 
 const sendres = (req,res,next) => {
@@ -232,4 +273,4 @@ const sendres = (req,res,next) => {
 }
 
 
-module.exports = { checkLoggin, addLogin, sendres, local, fbCheckup, googleCheckup, localSignUp, crackHead };
+module.exports = { checkLoggin, addLogin, sendres, local, fbCheckupStore, googleCheckupStore, fbCheckupRetrive, googleCheckupRetrive, localSignUp, crackHead };
