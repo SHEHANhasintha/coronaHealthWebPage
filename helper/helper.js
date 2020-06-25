@@ -25,8 +25,13 @@ const encryptPass = (password) => {return(new Promise((resolve,reject) => {
 }
 
 const comparePass = (hash,password) => {return(new Promise((resolve,reject) => {
+	 //resolve(true)
 	bcrypt.compare(password, hash, function(err, result) {
-	    resolve(result)
+		if (result){
+	    	resolve(true)
+		}else{
+			reject(false)
+		}
 	});
 }))}
 

@@ -23,7 +23,31 @@ function Application(props){
       //console.log(process.env.REACT_APP_APPLICATION_PROXY, " dsdsdsdsddsds");
       console.log(thita)
 
-      postData(`${process.env.REACT_APP_APPLICATION_PROXY}/app/local/tokenrenew`,thita)
+
+      //console.log(res);
+      axios
+        .post(`${process.env.REACT_APP_APPLICATION_PROXY}/app/local/tokenrenew`,thita)
+        .then((res) => {
+          console.log(res)
+          if (res.status == 200){
+            localStorage.setItem('email', res.data.login.email);
+            localStorage.setItem('firstName', res.data.login.firstName);
+            localStorage.setItem('lastName', res.data.login.lastName);
+            localStorage.setItem('token', res.data.tokenData.token);
+            localStorage.setItem('iat', res.data.tokenData.iat);
+            localStorage.setItem('exp', res.data.tokenData.exp);
+            localStorage.setItem('isAuthenticated', true);
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          })
+
+
+
+
+
+      /*postData(`${process.env.REACT_APP_APPLICATION_PROXY}/app/local/tokenrenew`,thita)
         .then((res) => {
           console.log(res);
           axios
@@ -47,7 +71,7 @@ function Application(props){
         .catch((err) => {
           console.log(err)
           updateEmailFail(true);
-        })
+        })*/
 
 
 

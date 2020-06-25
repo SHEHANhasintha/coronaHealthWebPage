@@ -29,16 +29,9 @@ class FacebookLogin extends Component{
 	      thita.usreId = res.id;
 	      thita.picture = res.picture.data.url;
 
-
-
-
-      postData(`/auth${context.loc}/facebook`,thita)
-        .then((res) => {
-          console.log(res);
-
-	      console.log(thita);
-	      axios
-	        .post(`/auth${context.loc}/facebook`,thita)
+        console.log(thita);
+        axios
+          .post(`/auth${context.loc}/facebook`,thita)
           .then((res) => {
             console.log(res)
             if (res.status == 200){
@@ -58,12 +51,6 @@ class FacebookLogin extends Component{
             console.log(err)
             //updateEmailFail(true);
             })
-
-        })
-        .catch((err) => {
-          console.log(err)
-          updateEmailFail(true);
-        })
 
 	    }))
 	}

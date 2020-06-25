@@ -23,8 +23,25 @@ const corsOptions = {
 }
 
 var app = express();
+
+var allowedOrigins = ['http://localhost:3000',
+                      'https://covidatlas.herokuapp.com'];
 app.use(cors());
-app.options('*', cors())
+
+
+
+
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Headers', 'content-type, authorization, content-length, x-requested-with, accept, origin');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+
+
 app.use(express.static(path.resolve(__dirname, "./covidatlas/build")));
 
 //default router path
@@ -48,17 +65,19 @@ app.set("view engine", "ejs");
 mongodb._connect();
 
 
+///app.options('*', cors())
 
-
-app.use('/', indexRouter);
-app.use('/app', authenticationHandlerApp);
-app.use('/auth', authenticationHandlerLocal);
+app.use('/', cors(),indexRouter);
+app.use('/app/', cors(), authenticationHandlerApp);
+app.use('/auth/', cors(),authenticationHandlerLocal);
 
 
 app.get("*",async function(request, response) {
 	//response.status(200).render(path.resolve(__dirname, "./covidatlas/build", "index.html"), {reactApp: reactComp});
   	response.sendFile(path.resolve(__dirname, "./covidatlas/build", "index.html"));
 });
+
+
 
 
 // catch 404 and forward to error handler

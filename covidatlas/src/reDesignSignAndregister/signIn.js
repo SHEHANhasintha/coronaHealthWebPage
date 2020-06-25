@@ -109,11 +109,6 @@ export default function SignInSide(props) {
                 console.log(context.validation, "qqqqqqqqqqqqqqqq");
 
       if (value){ 
-
-
-      postData(`/auth${context.loc}/local`,thita)
-        .then((res) => {
-          console.log(res);
           axios
             .post(`/auth${context.loc}/local`,thita)
             .then((res) => {
@@ -135,14 +130,31 @@ export default function SignInSide(props) {
               console.log(err)
               updateEmailFail(true);
             })
+            
+      /*postData(`/auth${context.loc}/local`,thita)
+        .then((res) => {
+
+          console.log('it is not right',res);
 
 
-
+          if (res.message == 'success'){
+            localStore('email', res.login.email);
+            localStore('firstName', res.login.firstName);
+            localStore('lastName', res.login.lastName);
+            localStore('token', res.tokenData.token);
+            localStore('iat', res.tokenData.iat);
+            localStore('exp', res.tokenData.exp);
+            localStore('isAuthenticated', true)
+              .then(() => {
+                  props.history.push('/app')
+                })
+          }
         })
         .catch((err) => {
           console.log(err)
           updateEmailFail(true);
-        })
+        })*/
+
       }
       })
 
@@ -186,11 +198,11 @@ export default function SignInSide(props) {
 
       console.log(validRegexEmail,validRegexPassword,"lllllllllllllllllllllll");
 
-      if (!validRegexEmail &&
-       !validRegexPassword){
-        cb(false).then(() => {resolve(false)});
-      }else{
+      if (validRegexEmail &&
+       validRegexPassword){
         cb(true).then(() => {resolve(true)});
+      }else{
+        cb(false).then(() => {resolve(false)});
       }
 
       toggleTheme(true,

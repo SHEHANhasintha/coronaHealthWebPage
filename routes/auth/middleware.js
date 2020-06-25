@@ -48,16 +48,14 @@ const checkLoggin = (req,res,next) => {
 
 	if (userNameValidated && passwordValidated){
 
-		//transever(req.body.email,req.body.password,console.log)
 		let token;
 		retrive(reqData.email)
 			.then((value) => {
 				if (value != false){
-							console.log(value.password,req.body.password);
-
+					//console.log(value.password,req.body.password);
 					comparePass(value.password,req.body.password).then((result) => 
 							{
-							if (result){
+								console.log("now ia m here",result);
 								updateUserToken().then((token) => {
 									updateData(reqData.email,null,token,null,null,null,console.log)
 										.then((result) => {
@@ -72,31 +70,41 @@ const checkLoggin = (req,res,next) => {
 											console.log(releasePacket);
 											responseData.login = releasePacket
 											statusCode = 200
-											responseData.message = "success"	
+											responseData.message = "success"
+											next();	
 										})
 										.catch((err) => {
 											statusCode = 403
 											responseData.message = "failed"
+											next();	
 										})
 								})
 								.catch((err) => {
 									statusCode = 403
 									responseData.message = "failed"
+									next();	
 								})
-
-							}else{
-								statusCode = 403
-							}
 							}
 						)
+						.catch((err) => {
+							statusCode = 403
+							responseData.message = "failed"
+							next();	
+						})
 					//transever(req.body.email,req.body.password,console.log)
 				}else{
 					statusCode = 403
+					next();	
 				}
 				//responseData.login = value
 				//responseData.token = token
 				
-				next();
+				
+			})
+			.catch((err) => {
+				statusCode = 403
+				responseData.message = "failed"
+				next();	
 			})
 
 	}else{
@@ -108,19 +116,15 @@ const checkLoggin = (req,res,next) => {
 
 
 const addLogin = (req,res,next) => {
-	//transever(req.body.email,req.body.password,console.log)
-	
 	let userNameValidated = userNameValidation(reqData.email)
 	let passwordValidated = passwordValidation(reqData.password)
 	//console.log(userNameValidated,passwordValidated);
 
 	if (userNameValidated && passwordValidated){
-		//transever(req.body.email,req.body.password,console.log)
 		let token;
 		retrive(reqData.email)
 			.then((value) => {
 				if (value == false){
-
 					tokenSigningJWT(reqData.email,reqData.password)
 						.then((token) => {
 							responseData.tokenData = token;
@@ -139,25 +143,20 @@ const addLogin = (req,res,next) => {
 									next();
 								})
 								.catch((err) => {
-									//console.log(err);
 									statusCode = 403;
-								})
+									next();
 
-							
+								})
 						})
 						.catch((err) => {
-							//console.log(err);
 							statusCode = 403;
+							next();
 						})
-
-					
 				}else{
 					statusCode = 403
+					next();
 				}
-				
-				//next();
 			})
-
 	}else{
 		statusCode = 403
 		next();
@@ -165,20 +164,29 @@ const addLogin = (req,res,next) => {
 	
 }
 
-const local = (req,res,next) => {
+const local = (req,res,next) => {return(new Promise((resolve,reject) => {
+		encryptPass(req.body.password.trim()).then((hash) => {
+			reqData = {
+				email : req.body.email.trim(),
+				password : hash.trim(),
+				token: req.body.token === undefined ? false : req.body.token.trim()
+			}
+			next();
+		})
 
-	encryptPass(req.body.password.trim()).then((hash) => {
-		reqData = {
-			email : req.body.email.trim(),
-			password : hash.trim(),
-			token: req.body.token === undefined ? false : req.body.token.trim()
-		}
-		//console.log(reqData)
-		next();
 	})
-
+	)
 	
 }
+
+
+const crackHead = (req,res,next) => {
+	//console.log(req.body);
+	//setInterval(function(){ next() }, 1000);	
+	next()
+}
+
+
 
 const localSignUp = (req,res,next) => {
 	//console.log(req.body);
@@ -212,15 +220,16 @@ const googleCheckup = (req,res,next) => {
 		email : req.body.email.trim(),
 		password : "9syJD8jScurcfwXyV9YpsFDWBW8XQe33c3PX49nxxbNdAYjwNbyY7pNRJbnVhhXRaYmGWFT2j3ZfHpUp"
 	}
+
 	next();
 }
 
 const sendres = (req,res,next) => {
-	console.log(req.body,"sending now")
-
+	console.log("sending now")
 	res.status(statusCode)
 	res.json(responseData)
+
 }
 
 
-module.exports = { checkLoggin, addLogin, sendres, local, fbCheckup, googleCheckup, localSignUp };
+module.exports = { checkLoggin, addLogin, sendres, local, fbCheckup, googleCheckup, localSignUp, crackHead };

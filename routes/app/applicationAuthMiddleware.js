@@ -58,25 +58,29 @@ const checkLoggin = (req,res,next) => {
 									//console.log("releasePacket",releasePacket);
 									responseData.login = releasePacket
 									statusCode = 200
-									responseData.message = "success"	
+									responseData.message = "success"
+									next();	
 								})
 								.catch((err) => {
 									statusCode = 403
 									responseData.message = "failed"
+									next();
 								})
 						})
 						.catch((err) => {
 							statusCode = 403
 							responseData.message = "failed"
+							next();
 						})
 					//transever(req.body.email,req.body.password,console.log)
 				}else{
 					statusCode = 403
+					next();
 				}
 				//responseData.login = value
 				//responseData.token = token
 				
-				next();
+				
 			})
 
 	}else{

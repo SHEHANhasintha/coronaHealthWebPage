@@ -19,8 +19,42 @@ class GoogleLogin extends Component{
 	      let thita = {}
 	      thita.email = res.profileObj.email;
 
-	      console.log(thita);	      
-	      axios
+	      console.log(thita);	
+
+
+      postData(`/auth${context.loc}/google`,thita)
+        .then((res) => {
+          console.log(res);
+
+
+            if (res.status == 'success'){
+              localStorage.setItem('email', res.login.email);
+              localStorage.setItem('firstName', res.login.firstName);
+              localStorage.setItem('lastName', res.login.lastName);
+              localStorage.setItem('token', res.tokenData.token);
+              localStorage.setItem('iat', res.tokenData.iat);
+              localStorage.setItem('exp', res.tokenData.exp);
+              localStorage.setItem('isAuthenticated', true);
+              console.log(this.props);
+              this.props.props.history.push('/app')
+            }else{
+            	console.log(res,'resss');
+            }
+
+
+        })
+        .catch((err) => {
+          console.log(err)
+          updateEmailFail(true);
+        })
+
+
+
+
+
+
+
+	      /*axios
 	    	  .post(`/auth${context.loc}/google`,thita)
 	          .then((res) => {
 	            console.log(res)
@@ -41,7 +75,7 @@ class GoogleLogin extends Component{
           .catch((err) => {
             console.log(err)
             //updateEmailFail(true);
-            })
+            })*/
 	    }))
 
 	}
