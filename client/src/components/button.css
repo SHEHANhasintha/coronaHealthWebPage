@@ -1,0 +1,91 @@
+/* mockup code */
+
+.downloadResume a {
+    border: solid 0px #e6e6e6;
+    border-radius: 2px;
+    display: inline-block;
+    height: 100px;
+    line-height: 100px;
+    margin: 0px 0px 50px 0px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    width: 75px;
+    text-decoration: none;
+
+}
+
+.downloadResume .discription{
+  font-size: 20px;
+  font-weight: 40;
+  position: relative;
+  width:200px;
+  text-decoration: none;
+
+}
+
+.downloadResume a span {
+    background: #f2594b;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: normal;
+    padding: 5px 10px;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 1;
+
+}
+
+.downloadResume a span:last-child {
+    margin-left: -20px;
+}
+
+.downloadResume a:before,
+.downloadResume a:after {
+    background: #ffffff;
+    border: solid 0px #9fb4cc;
+    border-radius: 4px;
+    content: '';
+    display: block;
+    height: 35px;
+    left: 50%;
+    margin: -17px 0 0 -12px;
+    position: absolute;
+    top: 50%;
+    /*transform:translate(-50%,-50%);*/
+    
+    width: 25px;
+}
+
+.downloadResume a:hover:before,
+.downloadResume a:hover:after {
+}
+/*a:before{transform:translate(-30%,-60%);}*/
+
+.downloadResume a:before {
+    margin: -23px 0 0 -5px;
+}
+
+.downloadResume a:hover {
+    border-color: #9fb4cc;
+}
+
+.downloadResume a:active {
+    box-shadow: inset 0 2px 2px rgba(0, 0, 0, .25);
+}
+
+.downloadResume a span:first-child {
+    display: none;
+}
+
+.downloadResume a:hover span:first-child {
+    display: inline-block;
+}
+
+.downloadResume a:hover span:last-child {
+    display: none;
+}
+/* custom code for the demo */
