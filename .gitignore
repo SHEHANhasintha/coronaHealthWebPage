@@ -5,12 +5,12 @@
 /.pnp
 .pnp.js
 
+# fontend
+/client/node_modules
+/client/build
 
 # testing
 /coverage
-
-# production
-/build
 
 # misc
 .DS_Store
